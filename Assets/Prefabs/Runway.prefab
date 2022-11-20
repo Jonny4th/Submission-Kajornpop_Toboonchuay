@@ -302,7 +302,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackButton: {fileID: 0}
-  trackChar: 83
+  trackChar: 97
+  note: {fileID: 4581957673142124744}
+  noteColor: {r: 0, g: 0, b: 0, a: 0}
+  noteSpeed: {fileID: 11400000, guid: b8264ae7e1b85f34d9c5d6853690fc11, type: 2}
 --- !u!1001 &6858218808995605061
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -320,7 +323,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5629905275803799248, guid: 0ea85312d071d4e49a12521f79afe3c9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.9301386
+      value: -0.7
       objectReference: {fileID: 0}
     - target: {fileID: 5629905275803799248, guid: 0ea85312d071d4e49a12521f79afe3c9, type: 3}
       propertyPath: m_LocalPosition.z

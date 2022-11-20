@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,28 +6,13 @@ using UnityEngine;
 public class Note : MonoBehaviour
 {
     Rigidbody2D _rigidbody;
-    [SerializeField] private float speed = 1;
-    [SerializeField] Color noteColor = Color.white;
+    float speed;
+    Color color;
     [SerializeField] Color noteColorMiss = Color.gray;
     
-
-    // Start is called before the first frame update
-
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
-        GetComponent<SpriteRenderer>().color = noteColor;
-    }
-
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     void Move()
@@ -49,4 +35,19 @@ public class Note : MonoBehaviour
         Stop();
     }
 
+    public void SetNoteSpeed(float noteSpeed)
+    {
+        speed = noteSpeed;
+    }
+
+    public void SetNoteColor(Color noteColor)
+    {
+        color = noteColor;
+        GetComponent<SpriteRenderer>().color = color;
+    }
+
+    public void NoteKeyPressed()
+    {
+
+    }
 }
