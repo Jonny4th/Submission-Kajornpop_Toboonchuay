@@ -65,5 +65,15 @@ public class NoteTrack : MonoBehaviour
     {
         NoteSpawning?.Invoke();
     }
-
+    public void SetTimeStamps(Melanchall.DryWetMidi.Interaction.Note[] array)
+    {
+        foreach (var note in array)
+        {
+            if (note.NoteName == noteRestriction)
+            {
+                var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, SongManager.midiFile.GetTempoMap());
+                timeStamps.Add((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f);
+            }
+        }
+    }
 }
