@@ -4,22 +4,23 @@ using UnityEngine;
 
 public class SpawnLine : MonoBehaviour
 {
-    [SerializeField] Note note;
-    // Start is called before the first frame update
-    void Start()
-    {
-        SpawnNote();
-    }
+    [SerializeField] Note[] notes;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        GetComponentInParent<NoteTrack>().NoteSpawning += SpawnNote;
     }
 
     private void SpawnNote()
     {
-        note.transform.position = gameObject.transform.position;
-        note.Spawn();
+        foreach (var note in notes)
+        {
+            if (!note.gameObject.activeSelf)
+            {
+                note.transform.position = gameObject.transform.position;
+                note.Spawn();
+                break;
+            }
+        }
     }
 }

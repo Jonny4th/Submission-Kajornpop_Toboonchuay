@@ -5,5 +5,15 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "FloatValue", menuName = "Float Value")]
 public class FloatValue : ScriptableObject
 {
-    public float value;
+    [SerializeField] float value;
+
+    public void SetValue(float value)
+    { 
+        this.value = value; 
+    }
+
+    public float GetValue()
+    {
+        return this.value;
+    }
 }

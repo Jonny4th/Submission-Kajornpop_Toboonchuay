@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SpawnLine
   - DespawnLine
+  - KeyLine
   layers:
   - Default
   - TransparentFX

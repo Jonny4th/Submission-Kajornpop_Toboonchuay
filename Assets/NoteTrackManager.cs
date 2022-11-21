@@ -4,15 +4,35 @@ using UnityEngine;
 
 public class NoteTrackManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] FloatValue keyPos;
+    [SerializeField] FloatValue spawnPos;
+    [SerializeField] FloatValue TimeDelay;
+    [SerializeField] FloatValue NoteSpeed;
+
+    [SerializeField] NoteTrack[] tracks;
+
+    void OnEnable()
     {
+        SetNoteSpeed();
+    }
+
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space)) 
+        {
+            int n = Random.Range(0, tracks.Length);
+            tracks[n].SpawnNote();
+        }
         
     }
 
-    // Update is called once per frame
-    void Update()
+    void SetNoteSpeed()
     {
-        
+        var start = spawnPos.GetValue();
+        var stop = keyPos.GetValue();
+        var time = TimeDelay.GetValue();
+        var speed = (start - stop) / time;
+        NoteSpeed.SetValue(speed);
     }
+
 }

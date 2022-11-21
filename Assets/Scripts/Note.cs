@@ -9,10 +9,16 @@ public class Note : MonoBehaviour
     float speed;
     Color color;
     [SerializeField] Color noteColorMiss = Color.gray;
-    
+    bool isWithinHitRegion;
+    NoteTrack track;
+
+    public static event Action Spawned;
+    public event Action Despawned;
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        gameObject.SetActive(false);
     }
 
     void Move()
@@ -25,14 +31,19 @@ public class Note : MonoBehaviour
     }
     public void Spawn()
     {
+        isWithinHitRegion = false;
         gameObject.SetActive(true);
         Move();
+        Spawned?.Invoke();
     }
 
     public void Despawn()
     {
+        
+        isWithinHitRegion = false;
         gameObject.SetActive(false);
         Stop();
+        Despawned?.Invoke();
     }
 
     public void SetNoteSpeed(float noteSpeed)
@@ -46,8 +57,20 @@ public class Note : MonoBehaviour
         GetComponent<SpriteRenderer>().color = color;
     }
 
+    public void IsWithinHitRegion(bool value)
+    {
+        isWithinHitRegion = value;
+    }
+
     public void NoteKeyPressed()
     {
-
+        if (isWithinHitRegion)
+        {
+            Debug.Log("Hit");
+        }
+        else
+        {
+            Debug.Log("Miss");
+        }
     }
 }
