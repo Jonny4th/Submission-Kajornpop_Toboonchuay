@@ -372,6 +372,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   noteTime: 2
+  baseScore: 20
+  score: 0
+  scoreDisplay: {fileID: 1344343714}
   tracks:
   - {fileID: 1377876536}
   - {fileID: 1137012281}
@@ -381,7 +384,7 @@ MonoBehaviour:
   - {fileID: 1006243486}
   fileLocation: Midi/DrumTrack1.mid
   audioSource: {fileID: 230111030}
-  songDelayInSeconds: 1
+  songDelayInSeconds: 0
 --- !u!82 &230111030
 AudioSource:
   m_ObjectHideFlags: 0
@@ -494,6 +497,22 @@ PrefabInstance:
       value: f
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: cueColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: cueColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: cueColor.g
+      value: 0.7169812
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: cueColor.r
+      value: 0.6978615
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: noteColor.a
       value: 1
       objectReference: {fileID: 0}
@@ -519,6 +538,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: octaveRestriction
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: AssociatedNoteOctave
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 817340241893753555, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
@@ -672,6 +695,7 @@ RectTransform:
   - {fileID: 1165543445425158724}
   - {fileID: 8569641015308541844}
   - {fileID: 8171359633875643462}
+  - {fileID: 1344343713}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -680,62 +704,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &427656840
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 427656842}
-  - component: {fileID: 427656841}
-  m_Layer: 0
-  m_Name: Timing Controller
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &427656841
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 427656840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 754970a73e201694787a76901341dc92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TimeBetweenSlowUpdateCalls: 0.14285715
-  ProfilerDebugAmount: 0
-  AutoTriggerManualTimeframe: 1
-  UpdateCoroutines: 0
-  FixedUpdateCoroutines: 0
-  LateUpdateCoroutines: 0
-  SlowUpdateCoroutines: 0
-  RealtimeUpdateCoroutines: 0
-  EditorUpdateCoroutines: 0
-  EditorSlowUpdateCoroutines: 0
-  EndOfFrameCoroutines: 0
-  ManualTimeframeCoroutines: 0
-  _instanceID: 1
---- !u!4 &427656842
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 427656840}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &524412087 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 817340241893753555, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
@@ -755,6 +723,22 @@ PrefabInstance:
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: trackChar
       value: s
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: cueColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: cueColor.b
+      value: 0.75811636
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: cueColor.g
+      value: 0.7735849
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: cueColor.r
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: noteColor.a
@@ -777,11 +761,19 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3752763706974061419}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: AssociatedNote
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: noteRestriction
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: octaveRestriction
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: AssociatedNoteOctave
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 817340241893753555, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
@@ -1040,6 +1032,22 @@ PrefabInstance:
       value: d
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: cueColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: cueColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: cueColor.g
+      value: 0.8867924
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: cueColor.r
+      value: 0.16943632
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: noteColor.a
       value: 1
       objectReference: {fileID: 0}
@@ -1060,11 +1068,19 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7221640543300810775}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: AssociatedNote
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: noteRestriction
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: octaveRestriction
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: AssociatedNoteOctave
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 817340241893753555, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
@@ -1282,6 +1298,196 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 817340241893753555, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
   m_PrefabInstance: {fileID: 1228419121554549830}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1344343712
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1344343713}
+  - component: {fileID: 1344343715}
+  - component: {fileID: 1344343714}
+  m_Layer: 5
+  m_Name: ScoreDisplay
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1344343713
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1344343712}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 318052468}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -431, y: 219}
+  m_SizeDelta: {x: 200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1344343714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1344343712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: '####'
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 36
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 4
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1344343715
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1344343712}
+  m_CullTransparentMesh: 1
+--- !u!1 &1347817746
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1347817748}
+  - component: {fileID: 1347817747}
+  m_Layer: 0
+  m_Name: Timing Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1347817747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347817746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 754970a73e201694787a76901341dc92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TimeBetweenSlowUpdateCalls: 0.14285715
+  ProfilerDebugAmount: 0
+  AutoTriggerManualTimeframe: 1
+  UpdateCoroutines: 0
+  FixedUpdateCoroutines: 0
+  LateUpdateCoroutines: 0
+  SlowUpdateCoroutines: 0
+  RealtimeUpdateCoroutines: 0
+  EditorUpdateCoroutines: 0
+  EditorSlowUpdateCoroutines: 0
+  EndOfFrameCoroutines: 0
+  ManualTimeframeCoroutines: 0
+  _instanceID: 1
+--- !u!4 &1347817748
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347817746}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1377876536 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
@@ -1426,6 +1632,22 @@ PrefabInstance:
       value: g
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: cueColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: cueColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: cueColor.g
+      value: 0.5949937
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: cueColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: noteColor.a
       value: 1
       objectReference: {fileID: 0}
@@ -1451,6 +1673,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: octaveRestriction
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: AssociatedNoteOctave
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 817340241893753555, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
@@ -1789,6 +2015,22 @@ PrefabInstance:
       value: h
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: cueColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: cueColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: cueColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: cueColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: noteColor.a
       value: 1
       objectReference: {fileID: 0}
@@ -1809,11 +2051,19 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8171359633875643461}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: AssociatedNote
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: noteRestriction
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: octaveRestriction
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: AssociatedNoteOctave
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 817340241893753555, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
@@ -2898,15 +3148,39 @@ PrefabInstance:
     m_TransformParent: {fileID: 230111028}
     m_Modifications:
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: cueColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: cueColor.b
+      value: 0.990566
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: cueColor.g
+      value: 0.2569865
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: cueColor.r
+      value: 0.59932363
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: trackButton
       value: 
       objectReference: {fileID: 133238034}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: AssociatedNote
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: noteRestriction
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: octaveRestriction
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: AssociatedNoteOctave
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 817340241893753555, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}

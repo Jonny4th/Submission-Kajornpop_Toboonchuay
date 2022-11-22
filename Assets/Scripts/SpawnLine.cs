@@ -4,23 +4,4 @@ using UnityEngine;
 
 public class SpawnLine : MonoBehaviour
 {
-    [SerializeField] Cue[] notes;
-
-    private void Awake()
-    {
-        GetComponentInParent<NoteHighway>().NoteSpawning += SpawnNote;
-    }
-
-    private void SpawnNote()
-    {
-        foreach (var note in notes)
-        {
-            if (!note.gameObject.activeSelf)
-            {
-                note.transform.position = gameObject.transform.position;
-                note.Spawn();
-                break;
-            }
-        }
-    }
 }

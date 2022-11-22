@@ -6,9 +6,9 @@ public class DespawnLine : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.TryGetComponent<Cue>(out var note))
+        if (other.TryGetComponent(out Cue cue))
         {
-            note.Despawn();
+            cue.Despawn();
         }
     }
 }

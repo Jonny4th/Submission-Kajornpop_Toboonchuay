@@ -16,4 +16,9 @@ public class FloatValue : ScriptableObject
     {
         return this.value;
     }
+
+    public void AddValue(float value)
+    { 
+        this.value += value;
+    }
 }

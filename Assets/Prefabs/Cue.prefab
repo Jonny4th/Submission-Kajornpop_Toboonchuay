@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   noteColorMiss: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  baseScore: 20
   assignedTime: 0
 --- !u!50 &9220269048001078696
 Rigidbody2D:
@@ -118,7 +119,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!70 &7226333478824693601
 CapsuleCollider2D:

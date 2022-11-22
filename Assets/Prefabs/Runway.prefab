@@ -185,8 +185,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1228419121543347927}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.2, z: 0}
-  m_LocalScale: {x: 1, y: 0.15, z: 1}
+  m_LocalPosition: {x: 0, y: -4.6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 817340241893753555}
   m_RootOrder: 1
@@ -375,7 +375,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8232abf45f6a27248a5d5f9b2bd38619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notes: []
 --- !u!1 &1681076284382730620
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,9 +436,10 @@ MonoBehaviour:
   - {fileID: 8190680678082508458}
   - {fileID: 5841026329645324377}
   cuePrefab: {fileID: 6970212752834357901, guid: 0ea85312d071d4e49a12521f79afe3c9, type: 3}
-  noteColor: {r: 0.4711793, g: 0.3177287, b: 0.6415094, a: 1}
-  noteRestriction: 1
-  octaveRestriction: 2
+  cueColor: {r: 0, g: 0, b: 0, a: 0}
+  AssociatedNote: 0
+  AssociatedNoteOctave: 0
+  timeStamps: []
 --- !u!1001 &1229499464085249063
 PrefabInstance:
   m_ObjectHideFlags: 0

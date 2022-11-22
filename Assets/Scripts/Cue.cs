@@ -8,7 +8,7 @@ public class Cue : MonoBehaviour
     Rigidbody2D _rigidbody;
     Color color;
     [SerializeField] Color noteColorMiss = Color.gray;
-    bool isWithinHitRegion;
+    public bool isWithinHitRegion { get; private set; }
     NoteHighway highway;
     Vector3 start;
     Vector3 stop;
@@ -30,7 +30,7 @@ public class Cue : MonoBehaviour
 
     IEnumerator Move()
     {
-        while (true)
+        while (Vector3.Distance(transform.position,stop) > 0.01f)
         {
             double timeSinceInstantiated = NoteHighwayManager.GetAudioSourceTime() - timeInstantiated;
             float t = (float)(timeSinceInstantiated / (NoteHighwayManager.Instance.noteTime * 2));
@@ -61,15 +61,14 @@ public class Cue : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void SetNoteColor(Color noteColor)
+    public void SetCueColor(Color cueColor)
     {
-        color = noteColor;
-        GetComponent<SpriteRenderer>().color = color;
+        GetComponent<SpriteRenderer>().color = cueColor;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent<NoteIndicator>(out NoteIndicator indicator))
+        if (collision.TryGetComponent(out NoteIndicator _))
         {
             isWithinHitRegion = true;
         }
