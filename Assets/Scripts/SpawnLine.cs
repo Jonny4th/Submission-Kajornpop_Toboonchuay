@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class SpawnLine : MonoBehaviour
 {
-    [SerializeField] Note[] notes;
+    [SerializeField] Cue[] notes;
 
     private void Awake()
     {
-        GetComponentInParent<NoteTrack>().NoteSpawning += SpawnNote;
+        GetComponentInParent<NoteHighway>().NoteSpawning += SpawnNote;
     }
 
     private void SpawnNote()

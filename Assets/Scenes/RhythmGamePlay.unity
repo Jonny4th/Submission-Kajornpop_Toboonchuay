@@ -170,7 +170,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -190, y: -162}
+  m_AnchoredPosition: {x: -190, y: -285}
   m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &133238034
@@ -330,6 +330,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 230111028}
+  - component: {fileID: 230111030}
   - component: {fileID: 230111029}
   m_Layer: 0
   m_Name: NoteTrackManager
@@ -367,13 +368,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 230111027}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b111807d5eb3f846ba37b2792f4545f, type: 3}
+  m_Script: {fileID: 11500000, guid: 405295bc4f0423c4e9ccbcedba66d376, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyPos: {fileID: 11400000, guid: 9aa1087e0dc90404eb6748e38f2b3e72, type: 2}
-  spawnPos: {fileID: 11400000, guid: df8d9980970f1ab44ab2a52c901d9301, type: 2}
-  TimeDelay: {fileID: 11400000, guid: 23a97ac6e13c79a4ea6048b3624ebcda, type: 2}
-  NoteSpeed: {fileID: 11400000, guid: b8264ae7e1b85f34d9c5d6853690fc11, type: 2}
+  noteTime: 2
   tracks:
   - {fileID: 1377876536}
   - {fileID: 1137012281}
@@ -381,6 +379,105 @@ MonoBehaviour:
   - {fileID: 37278807}
   - {fileID: 1478062626}
   - {fileID: 1006243486}
+  fileLocation: AssetData/Midi/DrumTrack1.mid
+  audioSource: {fileID: 230111030}
+  songDelayInSeconds: 3
+--- !u!82 &230111030
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 230111027}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 5601d09dd8fe057438eaddc88c611702, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &284217608
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -416,6 +513,10 @@ PrefabInstance:
       propertyPath: trackButton
       value: 
       objectReference: {fileID: 1165543445425158727}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: octaveRestriction
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 817340241893753555, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -615,6 +716,14 @@ PrefabInstance:
       propertyPath: trackButton
       value: 
       objectReference: {fileID: 3752763706974061419}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: noteRestriction
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: octaveRestriction
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 817340241893753555, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -890,6 +999,14 @@ PrefabInstance:
       propertyPath: trackButton
       value: 
       objectReference: {fileID: 7221640543300810775}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: noteRestriction
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: octaveRestriction
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 817340241893753555, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1105,76 +1222,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 817340241893753555, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
   m_PrefabInstance: {fileID: 1228419121554549830}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1360468529
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1360468530}
-  - component: {fileID: 1360468531}
-  - component: {fileID: 1360468532}
-  m_Layer: 0
-  m_Name: PerfectRegion
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1360468530
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1360468529}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1549234684}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &1360468531
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1360468529}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 5}
-  m_EdgeRadius: 0
---- !u!114 &1360468532
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1360468529}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 949b42236b2b3104bab5b16d61f48bae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1377876536 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
@@ -1274,10 +1321,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1549234682}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.7, z: 0}
+  m_LocalPosition: {x: 0, y: -2.35, z: 0}
   m_LocalScale: {x: 18.357403, y: 0.05632412, z: 1}
-  m_Children:
-  - {fileID: 1360468530}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1339,6 +1385,10 @@ PrefabInstance:
       propertyPath: trackButton
       value: 
       objectReference: {fileID: 8569641015308541847}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: octaveRestriction
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 817340241893753555, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -1393,49 +1443,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
---- !u!1 &2041974080
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2041974082}
-  - component: {fileID: 2041974081}
-  m_Layer: 0
-  m_Name: SongManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2041974081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2041974080}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 197bdae9c657b86448be97683f56e286, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &2041974082
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2041974080}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2113072528 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
@@ -1472,7 +1479,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 38, y: -162}
+  m_AnchoredPosition: {x: 38, y: -285}
   m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1165543445425158725
@@ -1737,6 +1744,14 @@ PrefabInstance:
       propertyPath: trackButton
       value: 
       objectReference: {fileID: 8171359633875643461}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: noteRestriction
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: octaveRestriction
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 817340241893753555, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -1942,7 +1957,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -114, y: -162}
+  m_AnchoredPosition: {x: -114, y: -285}
   m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3752763706974061417
@@ -2205,7 +2220,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -38, y: -162}
+  m_AnchoredPosition: {x: -38, y: -285}
   m_SizeDelta: {x: 76, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &7221640543300810773
@@ -2400,7 +2415,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 190, y: -162}
+  m_AnchoredPosition: {x: 190, y: -285}
   m_SizeDelta: {x: 76, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8171359633875643463
@@ -2715,7 +2730,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 114, y: -162}
+  m_AnchoredPosition: {x: 114, y: -285}
   m_SizeDelta: {x: 76, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8569641015308541845
@@ -2822,6 +2837,14 @@ PrefabInstance:
       propertyPath: trackButton
       value: 
       objectReference: {fileID: 133238034}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: noteRestriction
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: octaveRestriction
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 817340241893753555, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: m_RootOrder
       value: 0

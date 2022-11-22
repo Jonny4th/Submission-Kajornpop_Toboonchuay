@@ -9,7 +9,7 @@ public class NoteTrackManager : MonoBehaviour
     [SerializeField] FloatValue TimeDelay;
     [SerializeField] FloatValue NoteSpeed;
 
-    [SerializeField] NoteTrack[] tracks;
+    [SerializeField] NoteHighway[] tracks;
 
     void OnEnable()
     {

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9220269048001078696}
   - component: {fileID: 7226333478824693601}
   m_Layer: 0
-  m_Name: Note
+  m_Name: Cue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94,10 +94,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5629905275803799250}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c92e2859cda0f904b8d4885452e6faf9, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ab9fb113d809a040b447b735adefca2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   noteColorMiss: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  assignedTime: 0
 --- !u!50 &9220269048001078696
 Rigidbody2D:
   serializedVersion: 4
@@ -129,7 +130,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

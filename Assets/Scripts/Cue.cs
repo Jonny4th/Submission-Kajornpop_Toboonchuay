@@ -3,32 +3,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Note : MonoBehaviour
+public class Cue : MonoBehaviour
 {
     Rigidbody2D _rigidbody;
     float speed;
     Color color;
     [SerializeField] Color noteColorMiss = Color.gray;
     bool isWithinHitRegion;
-    NoteTrack track;
+    NoteHighway highway;
 
     public static event Action Spawned;
     public event Action Despawned;
 
-    private void Awake()
+    double timeInstantiated;
+    public float assignedTime;
+
+    void Awake()
     {
+        highway = GetComponentInParent<NoteHighway>();
         _rigidbody = GetComponent<Rigidbody2D>();
-        gameObject.SetActive(false);
     }
 
-    void Move()
+    void Start()
     {
-        _rigidbody.velocity = Vector3.down * speed;
+        timeInstantiated = NoteHighwayManager.GetAudioSourceTime();
+        StartCoroutine(nameof(Move));
     }
-    void Stop()
+    IEnumerator Move()
     {
-        _rigidbody.velocity = Vector3.zero;
+        double timeSinceInstantiated = NoteHighwayManager.GetAudioSourceTime() - timeInstantiated;
+        float t = (float)(timeSinceInstantiated / (NoteHighwayManager.Instance.noteTime * 2));
+        Vector3 start = highway.cueStart;
+        Vector3 stop = highway.cueDestination; 
+        gameObject.SetActive(true);
+        while (true)
+        {
+            transform.position = Vector3.Lerp(start, stop, t);
+            yield return null;
+        }
     }
+
     public void Spawn()
     {
         isWithinHitRegion = false;
@@ -39,10 +53,8 @@ public class Note : MonoBehaviour
 
     public void Despawn()
     {
-        
         isWithinHitRegion = false;
         gameObject.SetActive(false);
-        Stop();
         Despawned?.Invoke();
     }
 

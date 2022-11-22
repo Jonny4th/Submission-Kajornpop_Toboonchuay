@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DespawnLine : MonoBehaviour
+public class NoteIndicator : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -14,14 +14,5 @@ public class DespawnLine : MonoBehaviour
     void Update()
     {
         
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        Cue note = other.GetComponent<Cue>();
-        if (note != null)
-        {
-            note.Despawn();
-        }
     }
 }

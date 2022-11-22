@@ -4,34 +4,16 @@ using System;
 using System.Linq;
 using UnityEngine;
 
-public class NoteHighManager : MonoBehaviour
+public class NoteHighwayManager : MonoBehaviour
 {
-    public static NoteHighManager instance;
+    public static NoteHighwayManager Instance;
     public float noteTime;
-
-    [Header("Components")]
-    [SerializeField] SpawnLine spawnLine;
-    [SerializeField] DespawnLine despawnLine;
-    [SerializeField] ActionBar actionBar;
-
-    [SerializeField] public FloatValue keyPos;
-    [SerializeField] public FloatValue spawnPos;
-    public float despawnPos
-    {
-        get
-        {
-            return 2*keyPos.GetValue() - spawnPos.GetValue();
-        }
-    }
 
     public static event Action Starting;
 
-
-    [SerializeField] FloatValue TimeDelay;
-    [SerializeField] FloatValue NoteSpeed;
     public static double startTime;
 
-    [SerializeField] NoteTrack[] tracks;
+    [SerializeField] NoteHighway[] tracks;
 
     [Header("MIDI")]
     public static MidiFile midiFile;
@@ -39,12 +21,12 @@ public class NoteHighManager : MonoBehaviour
     public AudioSource audioSource;
     [SerializeField] float songDelayInSeconds;
 
-
+    public static event Action<Melanchall.DryWetMidi.Interaction.Note[]> DataReady;
 
     void OnEnable()
     {
-        instance = this;
-        NoteHighManager.Starting += StartGame;
+        Instance = this;
+        NoteHighwayManager.Starting += StartGame;
         SetNoteSpeed();
     }
 
@@ -63,11 +45,11 @@ public class NoteHighManager : MonoBehaviour
 
     void SetNoteSpeed()
     {
-        var start = spawnPos.GetValue();
-        var stop = keyPos.GetValue();
-        var time = TimeDelay.GetValue();
-        var speed = (start - stop) / time;
-        NoteSpeed.SetValue(speed);
+        //var start = spawnPos.GetValue();
+        //var stop = keyPos.GetValue();
+        //var time = TimeDelay.GetValue();
+        //var speed = (start - stop) / time;
+        //NoteSpeed.SetValue(speed);
     }
     void ReadFromFile()
     {
@@ -75,13 +57,15 @@ public class NoteHighManager : MonoBehaviour
         GetDataFromMidi();
     }
 
-    public void GetDataFromMidi()
+    void GetDataFromMidi()
     {
         var notes = midiFile.GetNotes();
         var array = new Melanchall.DryWetMidi.Interaction.Note[notes.Count];
         notes.CopyTo(array, 0);
 
-        foreach (var track in tracks) track.SetTimeStamps(array);
+        DataReady?.Invoke(array);
+
+        //foreach (var track in tracks) track.SetTimeStamps(array);
 
         StartGame();
     }
@@ -98,7 +82,7 @@ public class NoteHighManager : MonoBehaviour
     }
     public static double GetAudioSourceTime()
     {
-        return startTime + (double)instance.audioSource.timeSamples / instance.audioSource.clip.frequency;
+        return startTime + (double)Instance.audioSource.timeSamples / Instance.audioSource.clip.frequency;
     }
 
 }

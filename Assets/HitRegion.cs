@@ -7,7 +7,7 @@ public class HitRegion : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent<Note>(out var note))
+        if (collision.gameObject.TryGetComponent<Cue>(out var note))
         {
             note.IsWithinHitRegion(true);
         }
@@ -15,7 +15,7 @@ public class HitRegion : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent<Note>(out var note))
+        if (collision.gameObject.TryGetComponent<Cue>(out var note))
         {
             note.IsWithinHitRegion(false);
         }

@@ -8,12 +8,12 @@ public class Timer : MonoBehaviour
     float t;
     private void OnEnable()
     {
-        Note.Spawned += TimerStart;
+        Cue.Spawned += TimerStart;
     }
 
     private void OnDisable()
     {
-        Note.Spawned -= TimerStart;
+        Cue.Spawned -= TimerStart;
     }
 
     private void TimerStart()
