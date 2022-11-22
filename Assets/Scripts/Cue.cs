@@ -20,20 +20,23 @@ public class Cue : MonoBehaviour
     double timeInstantiated;
     public float assignedTime;
 
+    public float t;
+    public double timeSinceInstantiated;
+
     void Awake()
     {
         highway = GetComponentInParent<NoteHighway>();
         _rigidbody = GetComponent<Rigidbody2D>();
         start = highway.cueStart;
-        stop = highway.cueDestination; 
+        stop = highway.cueDestination;
     }
 
     IEnumerator Move()
     {
         while (Vector3.Distance(transform.position,stop) > 0.01f)
         {
-            double timeSinceInstantiated = NoteHighwayManager.GetAudioSourceTime() - timeInstantiated;
-            float t = (float)(timeSinceInstantiated / (NoteHighwayManager.Instance.noteTime * 2));
+            //t = (float)(timeSinceInstantiated / (NoteHighwayManager.Instance.noteTime * 2));
+            t = (float)((NoteHighwayManager.GetAudioSourceTime() - timeInstantiated) / 2/(assignedTime - timeInstantiated));
             transform.position = Vector3.Lerp(start, stop, t);
             yield return null;
         }
@@ -48,6 +51,10 @@ public class Cue : MonoBehaviour
     {
         gameObject.SetActive(true);
         timeInstantiated = NoteHighwayManager.GetAudioSourceTime();
+        t = (float)((NoteHighwayManager.GetAudioSourceTime() - timeInstantiated) / (assignedTime - timeInstantiated) * 2);
+        //timeSinceInstantiated = NoteHighwayManager.GetAudioSourceTime() - timeInstantiated;
+        //t = (float)(timeSinceInstantiated / (NoteHighwayManager.Instance.noteTime * 2));
+        transform.position = Vector3.Lerp(start, stop, t);
         StartCoroutine(Move());
         Spawned?.Invoke();
     }

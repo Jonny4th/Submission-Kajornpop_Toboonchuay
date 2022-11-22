@@ -64,6 +64,7 @@ public class NoteHighway : MonoBehaviour
         trackButtonDisplay.text = trackChar.ToUpper();
         noteIndicator.CueArrived += OnCueArrived;
         noteIndicator.CuePassed += OnCuePassed;
+        foreach (Cue c in cues) { c.SetCueColor(cueColor); }
     }
 
 
@@ -95,6 +96,7 @@ public class NoteHighway : MonoBehaviour
                 if (cue == null)
                 {
                     cue = Instantiate(cuePrefab, spawnLine.transform.position, Quaternion.identity, cueStock.transform);
+                    cue.SetCueColor(cueColor);
                     cues.Add(cue);
                 }
                 //noteList.Add(note.GetComponent<Cue>());
@@ -111,7 +113,7 @@ public class NoteHighway : MonoBehaviour
         if( Input.GetKeyDown(trackChar) )
         {
             
-            if (cueIndex < timeStamps.Count && timeStamps[cueIndex] - NoteHighwayManager.GetAudioSourceTime() < 1.0 )
+            if (cueIndex < timeStamps.Count && timeStamps[cueIndex] - NoteHighwayManager.GetAudioSourceTime() < .5 )
             {
                 Scored?.Invoke();
             }
