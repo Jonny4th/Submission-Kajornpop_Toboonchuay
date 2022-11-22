@@ -2,6 +2,7 @@ using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
 using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class NoteHighwayManager : MonoBehaviour
@@ -13,6 +14,8 @@ public class NoteHighwayManager : MonoBehaviour
 
     public static double startTime;
 
+    bool isPlaying;
+
     [SerializeField] NoteHighway[] tracks;
 
     [Header("MIDI")]
@@ -21,13 +24,13 @@ public class NoteHighwayManager : MonoBehaviour
     public AudioSource audioSource;
     [SerializeField] float songDelayInSeconds;
 
-    public static event Action<Melanchall.DryWetMidi.Interaction.Note[]> DataReady;
+    public static event Action<Note[]> DataReady;
 
     void OnEnable()
     {
         Instance = this;
-        NoteHighwayManager.Starting += StartGame;
-        SetNoteSpeed();
+        Starting += StartSong;
+        NoteHighway.SongFinished += OnGameStop;
     }
 
     private void Start()
@@ -37,49 +40,52 @@ public class NoteHighwayManager : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space)) 
+        if(!isPlaying && Input.GetKeyDown(KeyCode.Space)) 
         {
             Starting?.Invoke();
         }
+        if(Input.GetKeyDown(KeyCode.Escape)) 
+        {
+            Application.Quit();
+        }
     }
 
-    void SetNoteSpeed()
-    {
-        //var start = spawnPos.GetValue();
-        //var stop = keyPos.GetValue();
-        //var time = TimeDelay.GetValue();
-        //var speed = (start - stop) / time;
-        //NoteSpeed.SetValue(speed);
-    }
     void ReadFromFile()
     {
-        midiFile = MidiFile.Read(Application.dataPath + "/" + fileLocation);
+        string path = Application.streamingAssetsPath + "/" + fileLocation;
+        midiFile = MidiFile.Read(path);
         GetDataFromMidi();
     }
 
     void GetDataFromMidi()
     {
         var notes = midiFile.GetNotes();
-        var array = new Melanchall.DryWetMidi.Interaction.Note[notes.Count];
+        var array = new Note[notes.Count];
         notes.CopyTo(array, 0);
 
         DataReady?.Invoke(array);
-
-        //foreach (var track in tracks) track.SetTimeStamps(array);
 
         StartGame();
     }
 
     void StartGame()
     {
+        isPlaying = true;
         startTime = Time.time;
-        Invoke(nameof(StartSong), songDelayInSeconds);
+        Starting?.Invoke();
+    }
+
+    void OnGameStop()
+    {
+        isPlaying= false;
     }
 
     public void StartSong()
     {
-        audioSource.Play();
+        audioSource.PlayDelayed(songDelayInSeconds);
     }
+
+
     public static double GetAudioSourceTime()
     {
         return startTime + (double)Instance.audioSource.timeSamples / Instance.audioSource.clip.frequency;

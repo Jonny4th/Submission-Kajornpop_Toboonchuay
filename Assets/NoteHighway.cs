@@ -15,6 +15,8 @@ public class NoteHighway : MonoBehaviour
     [SerializeField] NoteIndicator noteIndicator;
     [SerializeField] GameObject cueStock;
 
+    public static event Action SongFinished;
+
     public Vector3 cueStart
     {
         get
@@ -46,10 +48,9 @@ public class NoteHighway : MonoBehaviour
     [SerializeField] string trackChar;
 
     [Header("Cue")]
-    [SerializeField] List<Cue> cues;
+    [SerializeField] List<Cue> cues = new List<Cue>();
     [SerializeField] Cue cuePrefab;
-    [SerializeField] Color noteColor;
-    [SerializeField] FloatValue noteSpeed;
+    public Color noteColor;
 
     public event Action NoteSpawning;
 
@@ -66,61 +67,57 @@ public class NoteHighway : MonoBehaviour
         trackButton.GetComponent<Image>().color = noteColor;
         trackButtonDisplay = trackButton.GetComponentInChildren<TMP_Text>();
         trackButtonDisplay.text = trackChar.ToUpper();
-        //foreach (var cue in cues)
-        //{
-        //    cue.SetNoteSpeed(noteSpeed.GetValue());
-        //    cue.SetNoteColor(noteColor);
-        //}
     }
 
     private void OnEnable()
     {
         NoteHighwayManager.DataReady += SetTimeStamps;
+        NoteHighwayManager.Starting += OnGameStart;
     }
 
-    void Update()
+    void OnGameStart()
     {
-        if (spawnIndex < timeStamps.Count)
+        StartCoroutine(RunGame());
+    }
+
+    IEnumerator RunGame()
+    {
+        spawnIndex = 0;
+        while (spawnIndex < timeStamps.Count)
         {
-            if (NoteHighwayManager.GetAudioSourceTime() >= timeStamps[spawnIndex] - NoteHighwayManager.Instance.noteTime)
+            if (NoteHighwayManager.GetAudioSourceTime() >= NoteHighwayManager.startTime + timeStamps[spawnIndex] - NoteHighwayManager.Instance.noteTime)
             {
-                Cue note = cues.Find(x => !x.gameObject.activeSelf);
-                if (note == null)
+                Cue cue = cues.Find(x => !x.gameObject.activeSelf);
+                if (cue == null)
                 {
-                    note = Instantiate(cuePrefab, spawnLine.transform.position, Quaternion.identity, cueStock.transform);
-                    cues.Add(note);
+                    cue = Instantiate(cuePrefab, spawnLine.transform.position, Quaternion.identity, cueStock.transform);
+                    cues.Add(cue);
                 }
                 //noteList.Add(note.GetComponent<Cue>());
-                note.GetComponent<Cue>().assignedTime = (float)timeStamps[spawnIndex];
+                cue.AssignTime((float)timeStamps[spawnIndex]);
+                cue.Spawn();
                 spawnIndex++;
             }
+            yield return null;
         }
+        SongFinished?.Invoke();
     }
 
 
-    void KeyPressing()
-    {
-        if( Input.GetKeyDown(trackChar) )
-        {
-            var go = trackButton.gameObject;
-            var ped = new PointerEventData(EventSystem.current);
-            ExecuteEvents.Execute(go, ped, ExecuteEvents.pointerEnterHandler);
-            ExecuteEvents.Execute(go, ped, ExecuteEvents.submitHandler);
-        }
-    }
     
     public void SpawnNote()
     {
         NoteSpawning?.Invoke();
     }
-    void SetTimeStamps(Melanchall.DryWetMidi.Interaction.Note[] array)
+
+    void SetTimeStamps(Note[] array)
     {
         foreach (var note in array)
         {
             if (note.NoteName == noteRestriction && note.Octave == octaveRestriction)
             {
                 var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, NoteHighwayManager.midiFile.GetTempoMap());
-                timeStamps.Add((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f);
+                timeStamps.Add(NoteHighwayManager.startTime + (double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f);
             }
         }
     }
