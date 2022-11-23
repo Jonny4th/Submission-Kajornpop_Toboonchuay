@@ -21,7 +21,7 @@ public class NoteHighwayManager : MonoBehaviour
     [SerializeField] float score;
     [SerializeField] TMP_Text scoreDisplay;
 
-    //[SerializeField] NoteHighway[] highways;
+    [SerializeField] TMP_Text openingText;
 
     [Header("MIDI")]
     public static MidiFile midiFile;
@@ -52,6 +52,7 @@ public class NoteHighwayManager : MonoBehaviour
     {
         if(!IsPlaying)
         {
+            openingText.gameObject.SetActive(true);
             if(Input.GetKeyDown(KeyCode.Escape) )
             {
                 Application.Quit();
@@ -75,6 +76,7 @@ public class NoteHighwayManager : MonoBehaviour
     }
     void StartGame()
     {
+        openingText.gameObject.SetActive(false);
         startTime = Time.time;
         ResetScore();
         StartSong();

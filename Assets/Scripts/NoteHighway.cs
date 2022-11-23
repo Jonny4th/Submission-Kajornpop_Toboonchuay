@@ -39,7 +39,6 @@ public class NoteHighway : MonoBehaviour
     //List<Cue> noteList = new List<Cue>();
     public List<double> timeStamps = new List<double>();
 
-    int spawnIndex = 0;
     int cueIndex = 0;
     float delay;
 
@@ -84,7 +83,6 @@ public class NoteHighway : MonoBehaviour
     void ResetIndice()
     {
         cueIndex = 0;
-        spawnIndex = 0;
     }
 
     void SetTimeStamps(Note[] array)
@@ -97,7 +95,6 @@ public class NoteHighway : MonoBehaviour
                 timeStamps.Add((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f);
             }
         }
-        //PrepareCues();
     }
 
     void PrepareCues()
@@ -105,7 +102,7 @@ public class NoteHighway : MonoBehaviour
         ResetIndice();
         foreach(double timeStamp in timeStamps)
         {
-            var startPos = (float)(timeStamp + delay) * speed * Vector3.up + ActionPosition; 
+            var startPos = (float)(timeStamp + delay ) * speed * Vector3.up + ActionPosition; 
             Cue cue = Instantiate(cuePrefab, startPos, Quaternion.identity, cueStock.transform);
             cue.SetCueColor(cueColor);
             cue.speed = speed;

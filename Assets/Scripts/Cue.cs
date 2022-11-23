@@ -40,7 +40,7 @@ public class Cue : MonoBehaviour
     {
         if(isWithinHitRegion && Input.GetKeyDown(actionChar))
         {
-            Debug.Log("Hit");
+            isWithinHitRegion = false;
             GetComponent<Animator>().SetTrigger("Hit");
             _rigidbody.velocity = Vector3.zero;
             highway.AddScore(baseValue);
