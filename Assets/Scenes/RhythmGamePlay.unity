@@ -498,6 +498,7 @@ MonoBehaviour:
   baseScore: 20
   score: 0
   scoreDisplay: {fileID: 1344343714}
+  openingText: {fileID: 28214742}
   fileLocation: Midi/DrumTrack1.mid
   audioSource: {fileID: 230111030}
   songDelayInSeconds: 2
@@ -3249,10 +3250,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 230111028}
     m_Modifications:
-    - target: {fileID: 7284202032952977, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
-      propertyPath: m_Size.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: ActionChar
       value: a

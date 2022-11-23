@@ -39,7 +39,6 @@ public class NoteHighway : MonoBehaviour
     //List<Cue> noteList = new List<Cue>();
     public List<double> timeStamps = new List<double>();
 
-    int cueIndex = 0;
     float delay;
 
     public event Action<float> Scored;
@@ -54,10 +53,7 @@ public class NoteHighway : MonoBehaviour
             ActionButtonDisplay = ActionButton.GetComponentInChildren<TMP_Text>();
             ActionButtonDisplay.text = ActionChar.ToUpper();
         }
-        noteIndicator.CueArrived += OnCueArrived;
-        noteIndicator.CuePassed += OnCuePassed;
     }
-
 
     private void OnEnable()
     {
@@ -80,11 +76,6 @@ public class NoteHighway : MonoBehaviour
         }
     }
 
-    void ResetIndice()
-    {
-        cueIndex = 0;
-    }
-
     void SetTimeStamps(Note[] array)
     {
         foreach (var note in array)
@@ -99,7 +90,6 @@ public class NoteHighway : MonoBehaviour
 
     void PrepareCues()
     {
-        ResetIndice();
         foreach(double timeStamp in timeStamps)
         {
             var startPos = (float)(timeStamp + delay ) * speed * Vector3.up + ActionPosition; 
@@ -109,17 +99,6 @@ public class NoteHighway : MonoBehaviour
             cue.assignedTime = (float)timeStamp;
         }
         CuePrepared?.Invoke();
-    }
-
-    private void OnCueArrived(Cue obj)
-    {
-        if(Math.Abs( NoteHighwayManager.GetAudioSourceTime() - timeStamps[cueIndex]) < 1.0)
-        {
-        }
-    }
-
-    private void OnCuePassed(Cue obj)
-    {
     }
 
     public void AddScore(float scoreAdd)

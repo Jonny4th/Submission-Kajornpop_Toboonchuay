@@ -40,6 +40,7 @@ public class Cue : MonoBehaviour
     {
         if(isWithinHitRegion && Input.GetKeyDown(actionChar))
         {
+            Debug.Log(assignedTime - NoteHighwayManager.GetAudioSourceTime());
             isWithinHitRegion = false;
             GetComponent<Animator>().SetTrigger("Hit");
             _rigidbody.velocity = Vector3.zero;
@@ -50,7 +51,6 @@ public class Cue : MonoBehaviour
     private void OnStart()
     {
         _rigidbody.velocity = Vector3.down * speed;
-        //StartCoroutine(Step());
     }
 
     public void AssignTime(float time)
