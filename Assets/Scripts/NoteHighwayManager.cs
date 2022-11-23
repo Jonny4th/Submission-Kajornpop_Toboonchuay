@@ -21,7 +21,7 @@ public class NoteHighwayManager : MonoBehaviour
     [SerializeField] float score;
     [SerializeField] TMP_Text scoreDisplay;
 
-    [SerializeField] NoteHighway[] highways;
+    //[SerializeField] NoteHighway[] highways;
 
     [Header("MIDI")]
     public static MidiFile midiFile;
@@ -37,6 +37,7 @@ public class NoteHighwayManager : MonoBehaviour
     {
         Instance = this;
         Starting += StartGame;
+        var highways = GetComponentsInChildren<NoteHighway>();
         foreach(var highway in highways)
         {
             highway.Scored += UpdateScore;
@@ -46,16 +47,21 @@ public class NoteHighwayManager : MonoBehaviour
     {
         ReadFromFile();
     }
-    void Update()
+
+    private void Update()
     {
-        if(!IsPlaying && Input.GetKeyDown(KeyCode.Space)) 
+        if(!IsPlaying)
         {
-            Starting?.Invoke();
+            if(Input.GetKeyDown(KeyCode.Escape) )
+            {
+                Application.Quit();
+            }
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                Starting?.Invoke();
+            }
         }
-        if(Input.GetKeyDown(KeyCode.Escape)) 
-        {
-            Application.Quit();
-        }
+        
     }
 
     void ReadFromFile()
@@ -83,6 +89,7 @@ public class NoteHighwayManager : MonoBehaviour
     }
     void UpdateScore(float add)
     {
+        Debug.Log("Score update");
         score += add;
         scoreDisplay.text = score.ToString("0");
     }

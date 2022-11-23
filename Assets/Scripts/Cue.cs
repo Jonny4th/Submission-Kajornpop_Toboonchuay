@@ -7,21 +7,21 @@ using UnityEngine.PlayerLoop;
 
 public class Cue : MonoBehaviour
 {
+    NoteHighway highway;
     Rigidbody2D _rigidbody;
     Color color;
     [SerializeField] Color noteColorMiss = Color.gray;
     Vector3 start;
     Vector3 stop;
 
-    public event Action Despawned;
-
-    double timeInstantiated;
     public float assignedTime { get;  set; }
     public float speed;
-    float t;
     string actionChar;
+    [SerializeField] float baseValue;
 
-    public bool isWithinHitRegion { get; private set; }
+    public bool isWithinHitRegion;
+
+    public event Action Despawned;
 
     void OnEnable()
     {
@@ -31,7 +31,7 @@ public class Cue : MonoBehaviour
 
     void Awake()
     {
-        var highway = GetComponentInParent<NoteHighway>();
+        highway = GetComponentInParent<NoteHighway>();
         actionChar = highway.ActionChar;
         _rigidbody = GetComponent<Rigidbody2D>();
     }
@@ -41,6 +41,9 @@ public class Cue : MonoBehaviour
         if(isWithinHitRegion && Input.GetKeyDown(actionChar))
         {
             Debug.Log("Hit");
+            GetComponent<Animator>().SetTrigger("Hit");
+            _rigidbody.velocity = Vector3.zero;
+            highway.AddScore(baseValue);
         }
     }
 
@@ -80,7 +83,7 @@ public class Cue : MonoBehaviour
     {
         if (collision.TryGetComponent(out NoteIndicator _))
         {
-            isWithinHitRegion = true;
+            isWithinHitRegion = false;
         }
     }
 

@@ -75,11 +75,6 @@ public class NoteHighway : MonoBehaviour
     {
         if( Input.GetKeyDown(ActionChar))
         {
-            
-            if (cueIndex < timeStamps.Count && timeStamps[cueIndex] - NoteHighwayManager.GetAudioSourceTime() < .5 )
-            {
-                Scored?.Invoke(20);
-            }
             var ped = new PointerEventData(EventSystem.current);
             ExecuteEvents.Execute(ActionButton.gameObject, ped, ExecuteEvents.pointerEnterHandler);
             ExecuteEvents.Execute(ActionButton.gameObject, ped, ExecuteEvents.submitHandler);
@@ -128,5 +123,11 @@ public class NoteHighway : MonoBehaviour
 
     private void OnCuePassed(Cue obj)
     {
+    }
+
+    public void AddScore(float scoreAdd)
+    {
+        Debug.Log("get score.");
+        Scored?.Invoke(scoreAdd);
     }
 }
