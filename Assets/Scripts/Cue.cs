@@ -1,3 +1,4 @@
+using Melanchall.DryWetMidi.Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,10 +10,8 @@ public class Cue : MonoBehaviour
     Color color;
     [SerializeField] Color noteColorMiss = Color.gray;
     public bool isWithinHitRegion { get; private set; }
-    NoteHighway highway;
     Vector3 start;
     Vector3 stop;
-    [SerializeField] float baseScore;
 
     public static event Action Spawned;
     public event Action Despawned;
@@ -20,16 +19,32 @@ public class Cue : MonoBehaviour
     double timeInstantiated;
     public float assignedTime;
 
-    public float t;
-    public double timeSinceInstantiated;
+    public float speed;
+    float t;
+    double timeSinceInstantiated;
+
+    private void OnEnable()
+    {
+        NoteHighwayManager.Starting += OnStart;
+    }
+
+    private void OnStart()
+    {
+        _rigidbody.velocity = Vector3.down * speed;
+    }
 
     void Awake()
     {
-        highway = GetComponentInParent<NoteHighway>();
         _rigidbody = GetComponent<Rigidbody2D>();
+        var highway = GetComponentInParent<NoteHighway>();
         start = highway.cueStart;
         stop = highway.cueDestination;
     }
+
+    private void Start()
+    {
+    }
+
 
     IEnumerator Move()
     {
@@ -75,6 +90,7 @@ public class Cue : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log(assignedTime);
         if (collision.TryGetComponent(out NoteIndicator _))
         {
             isWithinHitRegion = true;

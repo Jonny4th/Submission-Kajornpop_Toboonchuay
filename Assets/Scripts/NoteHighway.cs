@@ -6,6 +6,7 @@ using Melanchall.DryWetMidi.Interaction;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using NAudio.Wave;
 
 public class NoteHighway : MonoBehaviour
 {
@@ -43,6 +44,7 @@ public class NoteHighway : MonoBehaviour
     [SerializeField] string trackChar;
 
     [Header("Cue")]
+    [SerializeField] float speed;
     [SerializeField] List<Cue> cues = new List<Cue>();
     [SerializeField] Cue cuePrefab;
     public Color cueColor;
@@ -55,7 +57,7 @@ public class NoteHighway : MonoBehaviour
     int spawnIndex = 0;
     int cueIndex = 0;
 
-    public event Action Scored;
+    public event Action<float> Scored;
 
     private void Awake()
     {
@@ -71,7 +73,11 @@ public class NoteHighway : MonoBehaviour
     private void OnEnable()
     {
         NoteHighwayManager.DataReady += SetTimeStamps;
-        NoteHighwayManager.Starting += OnGameStart;
+        //NoteHighwayManager.Starting += OnGameStart;
+    }
+
+    private void Start()
+    {
     }
 
     void Update()
@@ -115,7 +121,7 @@ public class NoteHighway : MonoBehaviour
             
             if (cueIndex < timeStamps.Count && timeStamps[cueIndex] - NoteHighwayManager.GetAudioSourceTime() < .5 )
             {
-                Scored?.Invoke();
+                Scored?.Invoke(20);
             }
             var ped = new PointerEventData(EventSystem.current);
             ExecuteEvents.Execute(trackButton.gameObject, ped, ExecuteEvents.pointerEnterHandler);
@@ -133,6 +139,7 @@ public class NoteHighway : MonoBehaviour
                 timeStamps.Add((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f);
             }
         }
+        PrepareCues();
     }
     private void OnCueArrived(Cue obj)
     {
@@ -145,5 +152,17 @@ public class NoteHighway : MonoBehaviour
     private void OnCuePassed(Cue obj)
     {
         cueIndex++;
+    }
+
+    void PrepareCues()
+    {
+        foreach(double timeStamp in timeStamps)
+        {
+            Debug.Log(timeStamp);
+            var startPos = (float)timeStamp * speed * Vector3.up + ActionPosition; 
+            Cue cue = Instantiate(cuePrefab, startPos, Quaternion.identity, cueStock.transform);
+            cue.SetCueColor(cueColor);
+            cue.speed = speed;
+        }
     }
 }

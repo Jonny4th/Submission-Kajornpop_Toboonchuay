@@ -428,6 +428,7 @@ MonoBehaviour:
   cueStock: {fileID: 1830313776}
   trackButton: {fileID: 0}
   trackChar: a
+  speed: 4
   cues:
   - {fileID: 2490515676844925338}
   - {fileID: 6454216835621791617}
