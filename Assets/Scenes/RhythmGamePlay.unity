@@ -367,7 +367,7 @@ MonoBehaviour:
   highways: []
   fileLocation: Midi/DrumTrack1.mid
   audioSource: {fileID: 230111030}
-  songDelayInSeconds: 0
+  songDelayInSeconds: 2
 --- !u!82 &230111030
 AudioSource:
   m_ObjectHideFlags: 0
@@ -480,6 +480,10 @@ PrefabInstance:
       value: f
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: ActionChar
+      value: f
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: cueColor.a
       value: 1
       objectReference: {fileID: 0}
@@ -513,6 +517,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: trackButton
+      value: 
+      objectReference: {fileID: 1165543445425158727}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: ActionButton
       value: 
       objectReference: {fileID: 1165543445425158727}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
@@ -708,6 +716,10 @@ PrefabInstance:
       value: s
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: ActionChar
+      value: s
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: cueColor.a
       value: 1
       objectReference: {fileID: 0}
@@ -741,6 +753,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: trackButton
+      value: 
+      objectReference: {fileID: 3752763706974061419}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: ActionButton
       value: 
       objectReference: {fileID: 3752763706974061419}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
@@ -1015,6 +1031,10 @@ PrefabInstance:
       value: d
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: ActionChar
+      value: d
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: cueColor.a
       value: 1
       objectReference: {fileID: 0}
@@ -1048,6 +1068,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: trackButton
+      value: 
+      objectReference: {fileID: 7221640543300810775}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: ActionButton
       value: 
       objectReference: {fileID: 7221640543300810775}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
@@ -1571,6 +1595,10 @@ PrefabInstance:
       value: g
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: ActionChar
+      value: g
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: cueColor.a
       value: 1
       objectReference: {fileID: 0}
@@ -1604,6 +1632,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: trackButton
+      value: 
+      objectReference: {fileID: 8569641015308541847}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: ActionButton
       value: 
       objectReference: {fileID: 8569641015308541847}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
@@ -1943,6 +1975,10 @@ PrefabInstance:
       value: h
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: ActionChar
+      value: h
+      objectReference: {fileID: 0}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: cueColor.a
       value: 1
       objectReference: {fileID: 0}
@@ -1976,6 +2012,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: trackButton
+      value: 
+      objectReference: {fileID: 8171359633875643461}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: ActionButton
       value: 
       objectReference: {fileID: 8171359633875643461}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
@@ -3076,8 +3116,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 230111028}
     m_Modifications:
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
-      propertyPath: speed
-      value: 4
+      propertyPath: ActionChar
+      value: a
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: cueColor.a
@@ -3097,6 +3137,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: trackButton
+      value: 
+      objectReference: {fileID: 133238034}
+    - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: ActionButton
       value: 
       objectReference: {fileID: 133238034}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
@@ -3158,6 +3202,10 @@ PrefabInstance:
     - target: {fileID: 817340241893753555, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432666221631988502, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1681076284382730620, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: m_Name

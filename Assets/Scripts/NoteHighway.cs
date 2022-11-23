@@ -11,17 +11,10 @@ using NAudio.Wave;
 public class NoteHighway : MonoBehaviour
 {
     [Header("Components")]
-    [SerializeField] SpawnLine spawnLine;
     [SerializeField] DespawnLine despawnLine;
     [SerializeField] NoteIndicator noteIndicator;
     [SerializeField] GameObject cueStock;
-    public Vector3 cueStart
-    {
-        get
-        {
-            return spawnLine.transform.position;
-        }
-    }
+
     Vector3 ActionPosition
     {
         get
@@ -29,19 +22,11 @@ public class NoteHighway : MonoBehaviour
             return noteIndicator.transform.position;
         }
     }
-    public Vector3 cueDestination //used in cue's lerb method
-    {
-        get
-        {
-            // 2 times the distance from spawn point to indicator bar.
-            return ActionPosition - ( cueStart - ActionPosition ) ;
-        }
-    }
 
     [Header("ActionKey")]
-    [SerializeField] Button trackButton;
-    TMP_Text trackButtonDisplay;
-    [SerializeField] string trackChar;
+    [SerializeField] Button ActionButton;
+    TMP_Text ActionButtonDisplay;
+    public string ActionChar;
 
     [Header("Cue")]
     [SerializeField] float speed;
@@ -56,28 +41,29 @@ public class NoteHighway : MonoBehaviour
 
     int spawnIndex = 0;
     int cueIndex = 0;
+    float delay;
 
     public event Action<float> Scored;
+    public event Action CuePrepared;
 
     private void Awake()
     {
-        trackButton.GetComponent<Image>().color = cueColor;
-        trackButtonDisplay = trackButton.GetComponentInChildren<TMP_Text>();
-        trackButtonDisplay.text = trackChar.ToUpper();
+        delay = GetComponentInParent<NoteHighwayManager>().songDelayInSeconds;
+        if(ActionButton!= null)
+        {
+            ActionButton.GetComponent<Image>().color = cueColor;
+            ActionButtonDisplay = ActionButton.GetComponentInChildren<TMP_Text>();
+            ActionButtonDisplay.text = ActionChar.ToUpper();
+        }
         noteIndicator.CueArrived += OnCueArrived;
         noteIndicator.CuePassed += OnCuePassed;
-        foreach (Cue c in cues) { c.SetCueColor(cueColor); }
     }
 
 
     private void OnEnable()
     {
         NoteHighwayManager.DataReady += SetTimeStamps;
-        //NoteHighwayManager.Starting += OnGameStart;
-    }
-
-    private void Start()
-    {
+        NoteHighwayManager.Starting += PrepareCues;
     }
 
     void Update()
@@ -85,38 +71,9 @@ public class NoteHighway : MonoBehaviour
         KeyPressing();
     }
 
-    void OnGameStart()
-    {
-        StartCoroutine(RunGame());
-    }
-
-    IEnumerator RunGame()
-    {
-        spawnIndex = 0;
-        cueIndex = 0;
-        while (spawnIndex < timeStamps.Count)
-        {
-            if (NoteHighwayManager.GetAudioSourceTime() >= timeStamps[spawnIndex] - (double)NoteHighwayManager.Instance.noteTime)
-            {
-                Cue cue = cues.Find(x => !x.gameObject.activeSelf);
-                if (cue == null)
-                {
-                    cue = Instantiate(cuePrefab, spawnLine.transform.position, Quaternion.identity, cueStock.transform);
-                    cue.SetCueColor(cueColor);
-                    cues.Add(cue);
-                }
-                //noteList.Add(note.GetComponent<Cue>());
-                cue.AssignTime((float)timeStamps[spawnIndex]);
-                cue.Spawn();
-                spawnIndex++;
-            }
-            yield return null;
-        }
-    }
-
     void KeyPressing()
     {
-        if( Input.GetKeyDown(trackChar) )
+        if( Input.GetKeyDown(ActionChar))
         {
             
             if (cueIndex < timeStamps.Count && timeStamps[cueIndex] - NoteHighwayManager.GetAudioSourceTime() < .5 )
@@ -124,9 +81,15 @@ public class NoteHighway : MonoBehaviour
                 Scored?.Invoke(20);
             }
             var ped = new PointerEventData(EventSystem.current);
-            ExecuteEvents.Execute(trackButton.gameObject, ped, ExecuteEvents.pointerEnterHandler);
-            ExecuteEvents.Execute(trackButton.gameObject, ped, ExecuteEvents.submitHandler);
+            ExecuteEvents.Execute(ActionButton.gameObject, ped, ExecuteEvents.pointerEnterHandler);
+            ExecuteEvents.Execute(ActionButton.gameObject, ped, ExecuteEvents.submitHandler);
         }
+    }
+
+    void ResetIndice()
+    {
+        cueIndex = 0;
+        spawnIndex = 0;
     }
 
     void SetTimeStamps(Note[] array)
@@ -139,30 +102,31 @@ public class NoteHighway : MonoBehaviour
                 timeStamps.Add((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f);
             }
         }
-        PrepareCues();
+        //PrepareCues();
     }
+
+    void PrepareCues()
+    {
+        ResetIndice();
+        foreach(double timeStamp in timeStamps)
+        {
+            var startPos = (float)(timeStamp + delay) * speed * Vector3.up + ActionPosition; 
+            Cue cue = Instantiate(cuePrefab, startPos, Quaternion.identity, cueStock.transform);
+            cue.SetCueColor(cueColor);
+            cue.speed = speed;
+            cue.assignedTime = (float)timeStamp;
+        }
+        CuePrepared?.Invoke();
+    }
+
     private void OnCueArrived(Cue obj)
     {
         if(Math.Abs( NoteHighwayManager.GetAudioSourceTime() - timeStamps[cueIndex]) < 1.0)
         {
-            Debug.Log(obj.assignedTime);
         }
     }
 
     private void OnCuePassed(Cue obj)
     {
-        cueIndex++;
-    }
-
-    void PrepareCues()
-    {
-        foreach(double timeStamp in timeStamps)
-        {
-            Debug.Log(timeStamp);
-            var startPos = (float)timeStamp * speed * Vector3.up + ActionPosition; 
-            Cue cue = Instantiate(cuePrefab, startPos, Quaternion.identity, cueStock.transform);
-            cue.SetCueColor(cueColor);
-            cue.speed = speed;
-        }
     }
 }

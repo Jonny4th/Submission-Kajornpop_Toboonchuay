@@ -14,7 +14,6 @@ public class NoteIndicator : MonoBehaviour
         if(collision.TryGetComponent(out Cue cue))
         {
             CueArrived?.Invoke(cue);
-            Debug.Log(cue.assignedTime);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)

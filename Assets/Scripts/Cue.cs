@@ -3,75 +3,56 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class Cue : MonoBehaviour
 {
     Rigidbody2D _rigidbody;
     Color color;
     [SerializeField] Color noteColorMiss = Color.gray;
-    public bool isWithinHitRegion { get; private set; }
     Vector3 start;
     Vector3 stop;
 
-    public static event Action Spawned;
     public event Action Despawned;
 
     double timeInstantiated;
-    public float assignedTime;
-
+    public float assignedTime { get;  set; }
     public float speed;
     float t;
-    double timeSinceInstantiated;
+    string actionChar;
 
-    private void OnEnable()
+    public bool isWithinHitRegion { get; private set; }
+
+    void OnEnable()
     {
         NoteHighwayManager.Starting += OnStart;
+        GetComponentInParent<NoteHighway>().CuePrepared += OnStart;
+    }
+
+    void Awake()
+    {
+        var highway = GetComponentInParent<NoteHighway>();
+        actionChar = highway.ActionChar;
+        _rigidbody = GetComponent<Rigidbody2D>();
+    }
+
+    void Update()
+    {
+        if(isWithinHitRegion && Input.GetKeyDown(actionChar))
+        {
+            Debug.Log("Hit");
+        }
     }
 
     private void OnStart()
     {
         _rigidbody.velocity = Vector3.down * speed;
-    }
-
-    void Awake()
-    {
-        _rigidbody = GetComponent<Rigidbody2D>();
-        var highway = GetComponentInParent<NoteHighway>();
-        start = highway.cueStart;
-        stop = highway.cueDestination;
-    }
-
-    private void Start()
-    {
-    }
-
-
-    IEnumerator Move()
-    {
-        while (Vector3.Distance(transform.position,stop) > 0.01f)
-        {
-            //t = (float)(timeSinceInstantiated / (NoteHighwayManager.Instance.noteTime * 2));
-            t = (float)((NoteHighwayManager.GetAudioSourceTime() - timeInstantiated) / 2/(assignedTime - timeInstantiated));
-            transform.position = Vector3.Lerp(start, stop, t);
-            yield return null;
-        }
+        //StartCoroutine(Step());
     }
 
     public void AssignTime(float time)
     {
         assignedTime = time;
-    }
-
-    public void Spawn()
-    {
-        gameObject.SetActive(true);
-        timeInstantiated = NoteHighwayManager.GetAudioSourceTime();
-        t = (float)((NoteHighwayManager.GetAudioSourceTime() - timeInstantiated) / (assignedTime - timeInstantiated) * 2);
-        //timeSinceInstantiated = NoteHighwayManager.GetAudioSourceTime() - timeInstantiated;
-        //t = (float)(timeSinceInstantiated / (NoteHighwayManager.Instance.noteTime * 2));
-        transform.position = Vector3.Lerp(start, stop, t);
-        StartCoroutine(Move());
-        Spawned?.Invoke();
     }
 
     public void Despawn()
@@ -90,7 +71,13 @@ public class Cue : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(assignedTime);
+        if (collision.TryGetComponent(out NoteIndicator _))
+        {
+            isWithinHitRegion = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
         if (collision.TryGetComponent(out NoteIndicator _))
         {
             isWithinHitRegion = true;
