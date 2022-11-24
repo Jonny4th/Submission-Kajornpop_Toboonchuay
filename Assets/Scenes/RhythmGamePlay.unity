@@ -496,7 +496,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   actionMarginOfError: 0.10000000149011612
-  baseScore: 20
   score: 0
   scoreDisplay: {fileID: 725937630}
   openingText: {fileID: 28214742}
@@ -3316,6 +3315,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 230111028}
     m_Modifications:
+    - target: {fileID: 7284202032952977, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: m_Size.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7284202032952977, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+      propertyPath: m_Offset.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: ActionChar
       value: a

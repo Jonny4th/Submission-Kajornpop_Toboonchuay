@@ -17,8 +17,6 @@ public class Cue : MonoBehaviour
     public float baseScore;
     public bool IsWithinHitRegion { get; set; }
 
-    public event Action<Cue> Hit;
-
     void Awake()
     {
         highway = GetComponentInParent<NoteHighway>();
@@ -29,20 +27,7 @@ public class Cue : MonoBehaviour
     {
         highway.CuePrepared += OnStart;
     }
-
-    void Update()
-    {
-        if (IsWithinHitRegion && Input.GetKeyDown(ActionChar) && Math.Abs(AssignedTime - NoteHighwayManager.GetAudioSourceTime()) < MarginOfError)
-        {
-            IsWithinHitRegion = false;
-            _rigidbody.velocity = Vector3.zero;
-            transform.position = highway.ActionPosition;
-            GetComponent<Animator>().SetTrigger("Hit");
-            Hit?.Invoke(this);
-            Destroy(gameObject, 1f);
-        }
-    }
-
+    
     public void Despawn()
     {
         _rigidbody.velocity = Vector3.zero;
@@ -56,6 +41,14 @@ public class Cue : MonoBehaviour
         {
             _rigidbody.velocity = Vector3.down * Speed;
         }
+    }
+    public void OnHit()
+    {
+        IsWithinHitRegion = false;
+        _rigidbody.velocity = Vector3.zero;
+        transform.position = highway.ActionPosition;
+        GetComponent<Animator>().SetTrigger("Hit");
+        Destroy(gameObject, 1f);
     }
 
     public void AssignTime(float time)

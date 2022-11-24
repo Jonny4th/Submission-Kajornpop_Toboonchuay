@@ -35,8 +35,6 @@ public class NoteHighway : MonoBehaviour
     [SerializeField] Melanchall.DryWetMidi.MusicTheory.NoteName AssociatedNote;
     [SerializeField] int AssociatedNoteOctave;
 
-    Cue focusCue;
-
     [Header("Effects")]
     [SerializeField] ParticleSystem hitEffect;
 
@@ -77,14 +75,14 @@ public class NoteHighway : MonoBehaviour
     void Update()
     {
         KeyPressing();
-        if (Input.GetKeyDown(ActionChar) && Math.Abs(timeStamps[currentCueIndex] - NoteHighwayManager.GetAudioSourceTime()) < marginOfError && cueList[currentCueIndex].IsWithinHitRegion)
+        if (currentCueIndex < cueList.Count)
         {
-            //cueList[currentCueIndex].IsWithinHitRegion = false;
-            //_rigidbody.velocity = Vector3.zero;
-            //transform.position = highway.ActionPosition;
-            //GetComponent<Animator>().SetTrigger("Hit");
-            //Hit?.Invoke(this);
-            //Destroy(gameObject, 1f);
+            if (Input.GetKeyDown(ActionChar) && Math.Abs(timeStamps[currentCueIndex] - NoteHighwayManager.GetAudioSourceTime()) < marginOfError && cueList[currentCueIndex].IsWithinHitRegion)
+            {
+                var cue = cueList[currentCueIndex];
+                cue.OnHit();
+                OnCueHit(cue);
+            }
         }
     }
 
@@ -113,6 +111,7 @@ public class NoteHighway : MonoBehaviour
     void PrepareCues()
     {
         currentCueIndex = 0;
+        cueList.Clear();
         foreach(double timeStamp in timeStamps)
         {
             var startPos = (float)(timeStamp + delay ) * speed * Vector3.up + ActionPosition; 
@@ -122,32 +121,33 @@ public class NoteHighway : MonoBehaviour
             cue.Speed = speed;
             cue.AssignedTime = (float)timeStamp;
             cue.MarginOfError = marginOfError;
-            cue.Hit += OnCueHit;
         }
         CuePrepared?.Invoke();
     }
 
     void OnCueHit(Cue cue)
     {
-        cue.Hit -= OnCueHit;
         if(hitEffect!= null)
         {
-            var efx = Instantiate(hitEffect, noteIndicator.transform.position, Quaternion.identity);
+            _ = Instantiate(hitEffect, noteIndicator.transform.position, Quaternion.identity);
         }
-        AddScore(cue.baseScore);
-    }
-    void AddScore(float scoreAdd)
-    {
-        Scored?.Invoke(scoreAdd);
+        Scored?.Invoke(cue.baseScore);
+        OnCuePassed(cue);
     }
     private void OnCueArrived(Cue obj)
     {
     }
     private void OnCuePassed(Cue obj)
     {
+        UpdateCurrentCueIndex();
+    }
+
+    private void UpdateCurrentCueIndex()
+    {
         if(currentCueIndex < cueList.Count)
         {
             currentCueIndex++;
         }
     }
+
 }
