@@ -11,8 +11,7 @@ using NAudio.Wave;
 public class NoteHighway : MonoBehaviour
 {
     [Header("Components")]
-    [SerializeField] DespawnLine despawnLine;
-    [SerializeField] NoteIndicator noteIndicator;
+    [SerializeField] GameObject noteIndicator;
     [SerializeField] GameObject cueStock;
 
     public Vector3 ActionPosition
@@ -30,6 +29,7 @@ public class NoteHighway : MonoBehaviour
 
     [Header("Cue")]
     float speed;
+    double marginOfError;
     [SerializeField] List<Cue> cues = new List<Cue>();
     [SerializeField] Cue cuePrefab;
     public Color cueColor;
@@ -39,7 +39,6 @@ public class NoteHighway : MonoBehaviour
     [Header("Effects")]
     [SerializeField] ParticleSystem hitEffect;
 
-    //List<Cue> noteList = new List<Cue>();
     public List<double> timeStamps = new List<double>();
 
     float delay;
@@ -52,6 +51,7 @@ public class NoteHighway : MonoBehaviour
         var highwayManager = GetComponentInParent<NoteHighwayManager>();
         delay = highwayManager.songDelayInSeconds;
         speed = highwayManager.speed;
+        marginOfError = highwayManager.actionMarginOfError;
         if(ActionButton!= null)
         {
             ActionButton.GetComponent<Image>().color = cueColor;
@@ -100,8 +100,9 @@ public class NoteHighway : MonoBehaviour
             var startPos = (float)(timeStamp + delay ) * speed * Vector3.up + ActionPosition; 
             Cue cue = Instantiate(cuePrefab, startPos, Quaternion.identity, cueStock.transform);
             cue.SetCueColor(cueColor);
-            cue.speed = speed;
-            cue.assignedTime = (float)timeStamp;
+            cue.Speed = speed;
+            cue.AssignedTime = (float)timeStamp;
+            cue.MarginOfError = marginOfError;
             cue.Hit += OnCueHit;
         }
         CuePrepared?.Invoke();
@@ -110,13 +111,12 @@ public class NoteHighway : MonoBehaviour
     void OnCueHit(Cue cue)
     {
         cue.Hit -= OnCueHit;
-        hitEffect.Play();
+        var efx = Instantiate(hitEffect, noteIndicator.transform.position, Quaternion.identity);
         AddScore(cue.baseScore);
     }
 
     void AddScore(float scoreAdd)
     {
-        Debug.Log("get score.");
         Scored?.Invoke(scoreAdd);
     }
 }

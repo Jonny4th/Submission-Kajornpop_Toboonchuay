@@ -8,6 +8,7 @@ public class NoteHighwayManager : MonoBehaviour
 {
     public static NoteHighwayManager Instance;
     public float speed;
+    public double actionMarginOfError;
     public static double startTime;
     public bool IsPlaying
     {

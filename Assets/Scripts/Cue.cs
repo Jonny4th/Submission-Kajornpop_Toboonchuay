@@ -10,12 +10,13 @@ public class Cue : MonoBehaviour
     NoteHighway highway;
     Rigidbody2D _rigidbody;
 
-    public float assignedTime { get;  set; }
-    public float speed { get; set; }
-    string actionChar { get; set; }
+    public float AssignedTime { get;  set; }
+    public float Speed { get; set; }
+    public double MarginOfError { get; set; }
+    string ActionChar { get; set; }
     public float baseScore;
 
-    public bool isWithinHitRegion { get; set; }
+    public bool IsWithinHitRegion { get; set; }
 
     public event Action<Cue> Hit;
 
@@ -28,17 +29,15 @@ public class Cue : MonoBehaviour
     void Awake()
     {
         highway = GetComponentInParent<NoteHighway>();
-        actionChar = highway.ActionChar;
+        ActionChar = highway.ActionChar;
         _rigidbody = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
-        //if(isWithinHitRegion && Input.GetKeyDown(actionChar))
-        if (isWithinHitRegion && Input.GetKeyDown(actionChar) && Math.Abs(assignedTime - NoteHighwayManager.GetAudioSourceTime()) < 0.1)
+        if (IsWithinHitRegion && Input.GetKeyDown(ActionChar) && Math.Abs(AssignedTime - NoteHighwayManager.GetAudioSourceTime()) < MarginOfError)
         {
-            isWithinHitRegion = false;
-            Debug.Log(assignedTime - NoteHighwayManager.GetAudioSourceTime());
+            IsWithinHitRegion = false;
             _rigidbody.velocity = Vector3.zero;
             transform.position = highway.ActionPosition;
             GetComponent<Animator>().SetTrigger("Hit");
@@ -58,13 +57,13 @@ public class Cue : MonoBehaviour
     {
         if(_rigidbody != null)
         {
-            _rigidbody.velocity = Vector3.down * speed;
+            _rigidbody.velocity = Vector3.down * Speed;
         }
     }
 
     public void AssignTime(float time)
     {
-        assignedTime = time;
+        AssignedTime = time;
     }
 
     public void SetCueColor(Color cueColor)
@@ -74,16 +73,20 @@ public class Cue : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out NoteIndicator _))
+        if (collision.CompareTag("NoteIndicator"))
         {
-            isWithinHitRegion = true;
+            IsWithinHitRegion = true;
+        }
+        if (collision.CompareTag("DespawnLine"))
+        {
+            Despawn();
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out NoteIndicator _))
+        if (collision.CompareTag("NoteIndicator"))
         {
-            isWithinHitRegion = false;
+            IsWithinHitRegion = false;
         }
     }
 

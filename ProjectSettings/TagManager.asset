@@ -6,7 +6,7 @@ TagManager:
   tags:
   - SpawnLine
   - DespawnLine
-  - KeyLine
+  - NoteIndicator
   layers:
   - Default
   - TransparentFX
