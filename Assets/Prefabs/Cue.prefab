@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6970212752834357901}
   - component: {fileID: 9220269048001078696}
   - component: {fileID: 5893777149183633409}
-  - component: {fileID: 1242839797802704402}
+  - component: {fileID: -1148826434998174411}
   m_Layer: 0
   m_Name: Cue
   m_TagString: Untagged
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   noteColorMiss: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   speed: 0
-  baseValue: 20
+  baseScore: 20
   isWithinHitRegion: 0
 --- !u!50 &9220269048001078696
 Rigidbody2D:
@@ -149,7 +149,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.4}
   m_EdgeRadius: 0
---- !u!95 &1242839797802704402
+--- !u!95 &-1148826434998174411
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0

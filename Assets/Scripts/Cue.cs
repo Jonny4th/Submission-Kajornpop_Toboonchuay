@@ -9,19 +9,15 @@ public class Cue : MonoBehaviour
 {
     NoteHighway highway;
     Rigidbody2D _rigidbody;
-    Color color;
-    [SerializeField] Color noteColorMiss = Color.gray;
-    Vector3 start;
-    Vector3 stop;
 
     public float assignedTime { get;  set; }
-    public float speed;
-    string actionChar;
-    [SerializeField] float baseValue;
+    public float speed { get; set; }
+    string actionChar { get; set; }
+    public float baseScore;
 
-    public bool isWithinHitRegion;
+    public bool isWithinHitRegion { get; set; }
 
-    public event Action Despawned;
+    public event Action<Cue> Hit;
 
     void OnEnable()
     {
@@ -38,33 +34,37 @@ public class Cue : MonoBehaviour
 
     void Update()
     {
-        if(isWithinHitRegion && Input.GetKeyDown(actionChar))
+        //if(isWithinHitRegion && Input.GetKeyDown(actionChar))
+        if (isWithinHitRegion && Input.GetKeyDown(actionChar) && Math.Abs(assignedTime - NoteHighwayManager.GetAudioSourceTime()) < 0.1)
         {
-            Debug.Log(assignedTime - NoteHighwayManager.GetAudioSourceTime());
             isWithinHitRegion = false;
-            GetComponent<Animator>().SetTrigger("Hit");
+            Debug.Log(assignedTime - NoteHighwayManager.GetAudioSourceTime());
             _rigidbody.velocity = Vector3.zero;
-            highway.AddScore(baseValue);
+            transform.position = highway.ActionPosition;
+            GetComponent<Animator>().SetTrigger("Hit");
+            Hit?.Invoke(this);
+            Destroy(gameObject, 1f);
         }
+    }
+
+    public void Despawn()
+    {
+        _rigidbody.velocity = Vector3.zero;
+        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 
     private void OnStart()
     {
-        _rigidbody.velocity = Vector3.down * speed;
+        if(_rigidbody != null)
+        {
+            _rigidbody.velocity = Vector3.down * speed;
+        }
     }
 
     public void AssignTime(float time)
     {
         assignedTime = time;
-    }
-
-    public void Despawn()
-    {
-        StopAllCoroutines();
-        assignedTime = 0;
-        isWithinHitRegion = false;
-        Despawned?.Invoke();
-        gameObject.SetActive(false);
     }
 
     public void SetCueColor(Color cueColor)

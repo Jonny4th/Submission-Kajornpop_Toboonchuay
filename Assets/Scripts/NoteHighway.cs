@@ -15,7 +15,7 @@ public class NoteHighway : MonoBehaviour
     [SerializeField] NoteIndicator noteIndicator;
     [SerializeField] GameObject cueStock;
 
-    Vector3 ActionPosition
+    public Vector3 ActionPosition
     {
         get
         {
@@ -29,12 +29,15 @@ public class NoteHighway : MonoBehaviour
     public string ActionChar;
 
     [Header("Cue")]
-    [SerializeField] float speed;
+    float speed;
     [SerializeField] List<Cue> cues = new List<Cue>();
     [SerializeField] Cue cuePrefab;
     public Color cueColor;
     [SerializeField] Melanchall.DryWetMidi.MusicTheory.NoteName AssociatedNote;
     [SerializeField] int AssociatedNoteOctave;
+
+    [Header("Effects")]
+    [SerializeField] ParticleSystem hitEffect;
 
     //List<Cue> noteList = new List<Cue>();
     public List<double> timeStamps = new List<double>();
@@ -46,7 +49,9 @@ public class NoteHighway : MonoBehaviour
 
     private void Awake()
     {
-        delay = GetComponentInParent<NoteHighwayManager>().songDelayInSeconds;
+        var highwayManager = GetComponentInParent<NoteHighwayManager>();
+        delay = highwayManager.songDelayInSeconds;
+        speed = highwayManager.speed;
         if(ActionButton!= null)
         {
             ActionButton.GetComponent<Image>().color = cueColor;
@@ -97,11 +102,19 @@ public class NoteHighway : MonoBehaviour
             cue.SetCueColor(cueColor);
             cue.speed = speed;
             cue.assignedTime = (float)timeStamp;
+            cue.Hit += OnCueHit;
         }
         CuePrepared?.Invoke();
     }
 
-    public void AddScore(float scoreAdd)
+    void OnCueHit(Cue cue)
+    {
+        cue.Hit -= OnCueHit;
+        hitEffect.Play();
+        AddScore(cue.baseScore);
+    }
+
+    void AddScore(float scoreAdd)
     {
         Debug.Log("get score.");
         Scored?.Invoke(scoreAdd);

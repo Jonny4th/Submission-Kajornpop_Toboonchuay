@@ -7,7 +7,7 @@ using UnityEngine;
 public class NoteHighwayManager : MonoBehaviour
 {
     public static NoteHighwayManager Instance;
-    public float noteTime;
+    public float speed;
     public static double startTime;
     public bool IsPlaying
     {
@@ -91,7 +91,6 @@ public class NoteHighwayManager : MonoBehaviour
     }
     void UpdateScore(float add)
     {
-        Debug.Log("Score update");
         score += add;
         scoreDisplay.text = score.ToString("0");
     }
