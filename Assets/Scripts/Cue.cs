@@ -7,49 +7,34 @@ using UnityEngine.PlayerLoop;
 
 public class Cue : MonoBehaviour
 {
-    NoteHighway highway;
     Rigidbody2D _rigidbody;
 
-    public float AssignedTime { get;  set; }
-    public float Speed { get; set; }
-    public double MarginOfError { get; set; }
-    string ActionChar { get; set; }
-    public float baseScore;
+    [SerializeField] float baseScore;
+    float speed; // <-Highway
+    Vector3 indicatorPosition; // <-Highway
+    public float AssignedTime { get; private set; }
     public bool IsWithinHitRegion { get; set; }
 
+    #region MonoBehaviours
     void Awake()
     {
-        highway = GetComponentInParent<NoteHighway>();
-        ActionChar = highway.ActionChar;
+        //Cache
         _rigidbody = GetComponent<Rigidbody2D>();
-    }
-    void OnEnable()
-    {
+
+        //Get parameters
+        var highway = GetComponentInParent<NoteHighway>();
+        speed = highway.Speed;
+        indicatorPosition = highway.ActionPosition;
+
+        //Subscription
         highway.CuePrepared += OnStart;
     }
-    
-    public void Despawn()
+    void OnDisable()
     {
-        _rigidbody.velocity = Vector3.zero;
-        gameObject.SetActive(false);
-        Destroy(gameObject);
+        //Unsubscription
+        GetComponentInParent<NoteHighway>().CuePrepared-= OnStart;
     }
-
-    private void OnStart()
-    {
-        if(_rigidbody != null)
-        {
-            _rigidbody.velocity = Vector3.down * Speed;
-        }
-    }
-    public void OnHit()
-    {
-        IsWithinHitRegion = false;
-        _rigidbody.velocity = Vector3.zero;
-        transform.position = highway.ActionPosition;
-        GetComponent<Animator>().SetTrigger("Hit");
-        Destroy(gameObject, 1f);
-    }
+    #endregion
 
     public void AssignTime(float time)
     {
@@ -61,4 +46,28 @@ public class Cue : MonoBehaviour
         GetComponent<SpriteRenderer>().color = cueColor;
     }
 
+    private void OnStart()
+    {
+        if(_rigidbody != null)
+        {
+            _rigidbody.velocity = Vector3.down * speed;
+        }
+    }
+    public void OnHit()
+    {
+        IsWithinHitRegion = false;
+        _rigidbody.velocity = Vector3.zero;
+        transform.position = indicatorPosition;
+        GetComponent<Animator>().SetTrigger("Hit");
+        Destroy(gameObject, 1f);
+    }
+    public float GetScore()
+    {
+        return baseScore;
+    }
+
+    public void Despawn()
+    {
+        Destroy(gameObject);
+    }
 }

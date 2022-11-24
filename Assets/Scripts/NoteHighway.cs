@@ -1,12 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Melanchall.DryWetMidi.Interaction;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using NAudio.Wave;
 
 public class NoteHighway : MonoBehaviour
 {
@@ -25,84 +23,114 @@ public class NoteHighway : MonoBehaviour
     [Header("ActionKey")]
     [SerializeField] Button ActionButton;
     TMP_Text ActionButtonDisplay;
+    [Tooltip("Letter on the keyboard to be register as action button. Use small case.")]
     public string ActionChar;
+    double marginOfError;
+
 
     [Header("Cue")]
-    float speed;
-    double marginOfError;
     [SerializeField] Cue cuePrefab;
-    public Color cueColor;
+    public Color cueColor; // -> Cues
     [SerializeField] Melanchall.DryWetMidi.MusicTheory.NoteName AssociatedNote;
     [SerializeField] int AssociatedNoteOctave;
+    public float Speed { get; private set; }
 
     [Header("Effects")]
     [SerializeField] ParticleSystem hitEffect;
 
-    public List<Cue> cueList = new List<Cue>();
-    public List<double> timeStamps = new List<double>();
-    int currentCueIndex;
+    public List<Cue> cueList = new List<Cue>(); // cue instanciated in each highway.
+    public List<double> timeStamps = new List<double>(); // note time stamps from midi file.
+    int currentCueIndex; // use for action-cue detection.
 
-    float delay;
+    float delay; // (<- HighwayManager) for cue preparing.
 
-    public event Action<float> Scored;
-
+    public event Action<float> Scored; // send score to manager.
     public event Action CuePrepared;
 
+    #region Monobehaviours
     private void Awake()
     {
+        // Get parameters
         var highwayManager = GetComponentInParent<NoteHighwayManager>();
         delay = highwayManager.songDelayInSeconds;
-        speed = highwayManager.speed;
+        Speed = highwayManager.speed;
         marginOfError = highwayManager.actionMarginOfError;
+
+        //Set UI button
         if(ActionButton!= null)
         {
             ActionButton.GetComponent<Image>().color = cueColor;
             ActionButtonDisplay = ActionButton.GetComponentInChildren<TMP_Text>();
             ActionButtonDisplay.text = ActionChar.ToUpper();
         }
-        
-        noteIndicator.CueArrived += OnCueArrived;
-        noteIndicator.CuePassed += OnCuePassed;
     }
-
 
     private void OnEnable()
     {
+        //Subscription
+        noteIndicator.CueArrived += OnCueArrived;
+        noteIndicator.CuePassed += OnCuePassed;
         NoteHighwayManager.DataReady += SetTimeStamps;
         NoteHighwayManager.Starting += PrepareCues;
+    }
+
+    private void OnDisable()
+    {
+        //Unsubscription
+        noteIndicator.CueArrived -= OnCueArrived;
+        noteIndicator.CuePassed -= OnCuePassed;
+        NoteHighwayManager.DataReady -= SetTimeStamps;
+        NoteHighwayManager.Starting -= PrepareCues;
     }
 
     void Update()
     {
         KeyPressing();
+    }
+    #endregion
+
+    void KeyPressing()
+    {
+        if( Input.GetKeyDown(ActionChar))
+        {
+            //Interact with the button UI.
+            var ped = new PointerEventData(EventSystem.current);
+            ExecuteEvents.Execute(ActionButton.gameObject, ped, ExecuteEvents.pointerEnterHandler);
+            ExecuteEvents.Execute(ActionButton.gameObject, ped, ExecuteEvents.submitHandler);
+            
+            ActionExecute();
+        }
+    }
+
+    void ActionExecute()
+    {
         if (currentCueIndex < cueList.Count)
         {
-            if (Input.GetKeyDown(ActionChar) && Math.Abs(timeStamps[currentCueIndex] - NoteHighwayManager.GetAudioSourceTime()) < marginOfError && cueList[currentCueIndex].IsWithinHitRegion)
+            //Get current focused cue.
+            var cue = cueList[currentCueIndex];
+            
+            //Check if the cue time and the action time is within time window.
+            bool isWithinMargin = Math.Abs(cue.AssignedTime - NoteHighwayManager.GetAudioSourceTime()) < marginOfError;
+            
+            //Check if the cue is within reactable range.
+            bool isWithinActionRange = cue.IsWithinHitRegion;
+
+            if (isWithinActionRange && isWithinMargin)
             {
-                var cue = cueList[currentCueIndex];
                 cue.OnHit();
                 OnCueHit(cue);
             }
         }
     }
 
-    void KeyPressing()
-    {
-        if( Input.GetKeyDown(ActionChar))
-        {
-            var ped = new PointerEventData(EventSystem.current);
-            ExecuteEvents.Execute(ActionButton.gameObject, ped, ExecuteEvents.pointerEnterHandler);
-            ExecuteEvents.Execute(ActionButton.gameObject, ped, ExecuteEvents.submitHandler);
-        }
-    }
-
     void SetTimeStamps(Note[] array)
     {
+        //Get time stamp from Manager.
         foreach (var note in array)
         {
             if (note.NoteName == AssociatedNote && note.Octave == AssociatedNoteOctave)
             {
-                var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, NoteHighwayManager.midiFile.GetTempoMap());
+                var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, NoteHighwayManager.MidiFile.GetTempoMap());
                 timeStamps.Add((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f);
             }
         }
@@ -110,38 +138,36 @@ public class NoteHighway : MonoBehaviour
 
     void PrepareCues()
     {
+        //reset cue's index and list.
         currentCueIndex = 0;
         cueList.Clear();
+
+        //Create cues with time stamp on, and put into list.
         foreach(double timeStamp in timeStamps)
         {
-            var startPos = (float)(timeStamp + delay ) * speed * Vector3.up + ActionPosition; 
+            var startPos = (float)(timeStamp + delay ) * Speed * Vector3.up + ActionPosition; 
             Cue cue = Instantiate(cuePrefab, startPos, Quaternion.identity, cueStock.transform);
             cueList.Add(cue);
             cue.SetCueColor(cueColor);
-            cue.Speed = speed;
-            cue.AssignedTime = (float)timeStamp;
-            cue.MarginOfError = marginOfError;
+            cue.AssignTime((float)timeStamp);
         }
+
         CuePrepared?.Invoke();
     }
 
     void OnCueHit(Cue cue)
     {
+        //execute effects
         if(hitEffect!= null)
         {
             _ = Instantiate(hitEffect, noteIndicator.transform.position, Quaternion.identity);
         }
-        Scored?.Invoke(cue.baseScore);
+
+        //send score
+        Scored?.Invoke(cue.GetScore());
+
         OnCuePassed(cue);
     }
-    private void OnCueArrived(Cue obj)
-    {
-    }
-    private void OnCuePassed(Cue obj)
-    {
-        UpdateCurrentCueIndex();
-    }
-
     private void UpdateCurrentCueIndex()
     {
         if(currentCueIndex < cueList.Count)
@@ -150,4 +176,12 @@ public class NoteHighway : MonoBehaviour
         }
     }
 
+    private void OnCueArrived(Cue obj)
+    {
+    }
+
+    private void OnCuePassed(Cue obj)
+    {
+        UpdateCurrentCueIndex();
+    }
 }

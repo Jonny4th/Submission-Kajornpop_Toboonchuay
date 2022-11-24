@@ -6,11 +6,29 @@ using UnityEngine;
 
 public class NoteHighwayManager : MonoBehaviour
 {
-    public static NoteHighwayManager Instance;
-    public float speed;
-    public double actionMarginOfError;
-    public static double startTime;
-    public bool IsPlaying
+    private static NoteHighwayManager instance;
+    public static NoteHighwayManager Instance { get => instance; set => instance = value; }
+
+    [Header("Highway Parameters")]
+    [Tooltip("Cue moving speed")]
+    public float speed; // -> Highways; -> Cues
+    [Tooltip("Action time window in second.")]
+    public double actionMarginOfError; // -> Highways
+
+    [Header("UIs")]
+    [SerializeField] TMP_Text scoreDisplay;
+    [SerializeField] TMP_Text openingText;
+    float currentScore;
+
+    [Header("MIDI")]
+    [SerializeField] string fileLocation;
+    [SerializeField] AudioSource audioSource;
+    [Tooltip("Time in seconds before the song starts.")]
+    public float songDelayInSeconds; // -> Highways
+    Note[] chart;
+    public static MidiFile MidiFile { get; private set; }
+
+    bool IsPlaying
     {
         get
         {
@@ -18,85 +36,95 @@ public class NoteHighwayManager : MonoBehaviour
         }
     }
 
-    [SerializeField] float score;
-    [SerializeField] TMP_Text scoreDisplay;
-
-    [SerializeField] TMP_Text openingText;
-
-    [Header("MIDI")]
-    public static MidiFile midiFile;
-    [SerializeField] string fileLocation;
-    public AudioSource audioSource;
-    public float songDelayInSeconds;
-    Note[] chart; 
-
     public static event Action<Note[]> DataReady;
     public static event Action Starting;
 
+    #region MonoBehaviours
     void OnEnable()
     {
         Instance = this;
+
+        //Subscription
+        Array.ForEach(GetComponentsInChildren<NoteHighway>(), x => x.Scored += UpdateScore);
         Starting += StartGame;
-        var highways = GetComponentsInChildren<NoteHighway>();
-        foreach(var highway in highways)
-        {
-            highway.Scored += UpdateScore;
-        }
     }
-    private void Start()
+
+    void OnDisable()
+    {
+        //Unsubscription
+        Array.ForEach(GetComponentsInChildren<NoteHighway>(), x => x.Scored -= UpdateScore);
+        Starting -= StartGame;
+    }
+
+    void Start()
     {
         ReadFromFile();
     }
 
-    private void Update()
+    void Update()
     {
         if(!IsPlaying)
         {
             openingText.gameObject.SetActive(true);
-            if(Input.GetKeyDown(KeyCode.Escape) )
-            {
-                Application.Quit();
-            }
-            if(Input.GetKeyDown(KeyCode.Space))
-            {
-                Starting?.Invoke();
-            }
+            QuittingGame(KeyCode.Escape);
+            RestartingGame(KeyCode.Space);
         }
         
+    }
+    #endregion
+
+    void QuittingGame(KeyCode trigger)
+    {
+        if(Input.GetKeyDown(trigger))
+        {
+            //put things to do before quitting game here.
+            Application.Quit();
+        }
+    }
+
+    void RestartingGame(KeyCode trigger)
+    {
+        if(Input.GetKeyDown(trigger))
+        {
+            Starting?.Invoke();
+        }
     }
 
     void ReadFromFile()
     {
         string path = Application.streamingAssetsPath + "/" + fileLocation;
-        midiFile = MidiFile.Read(path);
-        var notes = midiFile.GetNotes();
-        chart = new Note[notes.Count];
+        MidiFile = MidiFile.Read(path);
+        var notes = MidiFile.GetNotes();
+        chart = new Note[notes.Count]; // allocate array for note data.
         notes.CopyTo(chart, 0);
-        DataReady?.Invoke(chart);
+        DataReady?.Invoke(chart); // sending data for preparation.
     }
+
     void StartGame()
     {
         openingText.gameObject.SetActive(false);
-        startTime = Time.time;
         ResetScore();
         StartSong();
     }
-    public void StartSong()
+
+    void StartSong()
     {
         audioSource.PlayDelayed(songDelayInSeconds);
     }
+
     public static double GetAudioSourceTime()
     {
         return (double)Instance.audioSource.timeSamples / Instance.audioSource.clip.frequency;
     }
+
     void UpdateScore(float add)
     {
-        score += add;
-        scoreDisplay.text = score.ToString("0");
+        currentScore += add;
+        scoreDisplay.text = currentScore.ToString("0");
     }
     void ResetScore()
     {
-        score = 0;
-        scoreDisplay.text = score.ToString("0");
+        currentScore = 0;
+        scoreDisplay.text = currentScore.ToString("0");
     }
 }
