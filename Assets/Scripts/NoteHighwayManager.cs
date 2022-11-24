@@ -18,7 +18,6 @@ public class NoteHighwayManager : MonoBehaviour
         }
     }
 
-    [SerializeField] float baseScore;
     [SerializeField] float score;
     [SerializeField] TMP_Text scoreDisplay;
 

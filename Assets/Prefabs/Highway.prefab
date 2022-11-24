@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 646117920}
   - component: {fileID: 646117921}
   - component: {fileID: 7284202032952977}
+  - component: {fileID: 8289923189878198364}
   m_Layer: 0
   m_Name: NoteIndicator
   m_TagString: NoteIndicator
@@ -96,7 +97,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 1.63}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -109,6 +110,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 8}
   m_EdgeRadius: 0
+--- !u!114 &8289923189878198364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 646117919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b7f8231c556bcc45bb2730b54564f6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1228419121543347927
 GameObject:
   m_ObjectHideFlags: 0
@@ -120,6 +133,7 @@ GameObject:
   - component: {fileID: 1228419121543347925}
   - component: {fileID: 1228419121543347924}
   - component: {fileID: 23925394}
+  - component: {fileID: 8722877424944706171}
   m_Layer: 0
   m_Name: DespawnLine
   m_TagString: DespawnLine
@@ -218,6 +232,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &8722877424944706171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228419121543347927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb25d69b48f7754d961b749e1dd8a9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1681076284382730620
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,22 +290,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c60ef4803e01c64d884e4909df9f595, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noteIndicator: {fileID: 646117919}
+  noteIndicator: {fileID: 8289923189878198364}
   cueStock: {fileID: 1920709022000218018}
   ActionButton: {fileID: 0}
   ActionChar: 
-  cues:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   cuePrefab: {fileID: 6970212752834357901, guid: 0ea85312d071d4e49a12521f79afe3c9, type: 3}
   cueColor: {r: 0, g: 0, b: 0, a: 0}
   AssociatedNote: 0
   AssociatedNoteOctave: 0
-  hitEffect: {fileID: 8557676251606342157, guid: 5d51fe0828bedab428eb12497c8046cf, type: 3}
+  hitEffect: {fileID: 0}
   timeStamps: []
 --- !u!1 &1920709022000218018
 GameObject:

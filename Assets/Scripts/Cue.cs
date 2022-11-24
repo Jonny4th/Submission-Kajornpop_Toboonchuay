@@ -15,22 +15,19 @@ public class Cue : MonoBehaviour
     public double MarginOfError { get; set; }
     string ActionChar { get; set; }
     public float baseScore;
-
     public bool IsWithinHitRegion { get; set; }
 
     public event Action<Cue> Hit;
-
-    void OnEnable()
-    {
-        NoteHighwayManager.Starting += OnStart;
-        GetComponentInParent<NoteHighway>().CuePrepared += OnStart;
-    }
 
     void Awake()
     {
         highway = GetComponentInParent<NoteHighway>();
         ActionChar = highway.ActionChar;
         _rigidbody = GetComponent<Rigidbody2D>();
+    }
+    void OnEnable()
+    {
+        highway.CuePrepared += OnStart;
     }
 
     void Update()
@@ -69,25 +66,6 @@ public class Cue : MonoBehaviour
     public void SetCueColor(Color cueColor)
     {
         GetComponent<SpriteRenderer>().color = cueColor;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("NoteIndicator"))
-        {
-            IsWithinHitRegion = true;
-        }
-        if (collision.CompareTag("DespawnLine"))
-        {
-            Despawn();
-        }
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("NoteIndicator"))
-        {
-            IsWithinHitRegion = false;
-        }
     }
 
 }

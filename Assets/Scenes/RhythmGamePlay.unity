@@ -456,7 +456,7 @@ GameObject:
   - component: {fileID: 230111030}
   - component: {fileID: 230111029}
   m_Layer: 0
-  m_Name: NoteTrackManager
+  m_Name: NoteHighwayManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -716,7 +716,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1681076284382730620, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: m_Name
-      value: NoteTrack4
+      value: NoteHighway4
       objectReference: {fileID: 0}
     - target: {fileID: 1681076284382730620, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: m_IsActive
@@ -957,7 +957,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1681076284382730620, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: m_Name
-      value: NoteTrack2
+      value: NoteHighway2
       objectReference: {fileID: 0}
     - target: {fileID: 1681076284382730620, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: m_IsActive
@@ -1406,7 +1406,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1681076284382730620, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: m_Name
-      value: NoteTrack3
+      value: NoteHighway3
       objectReference: {fileID: 0}
     - target: {fileID: 1681076284382730620, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: m_IsActive
@@ -1897,7 +1897,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1681076284382730620, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: m_Name
-      value: NoteTrack5
+      value: NoteHighway5
       objectReference: {fileID: 0}
     - target: {fileID: 1681076284382730620, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: m_IsActive
@@ -2281,7 +2281,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1681076284382730620, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: m_Name
-      value: NoteTrack6
+      value: NoteHighway6
       objectReference: {fileID: 0}
     - target: {fileID: 1681076284382730620, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: m_IsActive
@@ -3410,7 +3410,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1681076284382730620, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: m_Name
-      value: NoteTrack1
+      value: NoteHighway1
       objectReference: {fileID: 0}
     - target: {fileID: 1681076284382730620, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: m_IsActive

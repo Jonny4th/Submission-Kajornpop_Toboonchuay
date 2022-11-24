@@ -11,7 +11,7 @@ using NAudio.Wave;
 public class NoteHighway : MonoBehaviour
 {
     [Header("Components")]
-    [SerializeField] GameObject noteIndicator;
+    [SerializeField] NoteIndicator noteIndicator;
     [SerializeField] GameObject cueStock;
 
     public Vector3 ActionPosition
@@ -30,20 +30,24 @@ public class NoteHighway : MonoBehaviour
     [Header("Cue")]
     float speed;
     double marginOfError;
-    [SerializeField] List<Cue> cues = new List<Cue>();
     [SerializeField] Cue cuePrefab;
     public Color cueColor;
     [SerializeField] Melanchall.DryWetMidi.MusicTheory.NoteName AssociatedNote;
     [SerializeField] int AssociatedNoteOctave;
 
+    Cue focusCue;
+
     [Header("Effects")]
     [SerializeField] ParticleSystem hitEffect;
 
+    public List<Cue> cueList = new List<Cue>();
     public List<double> timeStamps = new List<double>();
+    int currentCueIndex;
 
     float delay;
 
     public event Action<float> Scored;
+
     public event Action CuePrepared;
 
     private void Awake()
@@ -58,7 +62,11 @@ public class NoteHighway : MonoBehaviour
             ActionButtonDisplay = ActionButton.GetComponentInChildren<TMP_Text>();
             ActionButtonDisplay.text = ActionChar.ToUpper();
         }
+        
+        noteIndicator.CueArrived += OnCueArrived;
+        noteIndicator.CuePassed += OnCuePassed;
     }
+
 
     private void OnEnable()
     {
@@ -69,6 +77,15 @@ public class NoteHighway : MonoBehaviour
     void Update()
     {
         KeyPressing();
+        if (Input.GetKeyDown(ActionChar) && Math.Abs(timeStamps[currentCueIndex] - NoteHighwayManager.GetAudioSourceTime()) < marginOfError && cueList[currentCueIndex].IsWithinHitRegion)
+        {
+            //cueList[currentCueIndex].IsWithinHitRegion = false;
+            //_rigidbody.velocity = Vector3.zero;
+            //transform.position = highway.ActionPosition;
+            //GetComponent<Animator>().SetTrigger("Hit");
+            //Hit?.Invoke(this);
+            //Destroy(gameObject, 1f);
+        }
     }
 
     void KeyPressing()
@@ -95,10 +112,12 @@ public class NoteHighway : MonoBehaviour
 
     void PrepareCues()
     {
+        currentCueIndex = 0;
         foreach(double timeStamp in timeStamps)
         {
             var startPos = (float)(timeStamp + delay ) * speed * Vector3.up + ActionPosition; 
             Cue cue = Instantiate(cuePrefab, startPos, Quaternion.identity, cueStock.transform);
+            cueList.Add(cue);
             cue.SetCueColor(cueColor);
             cue.Speed = speed;
             cue.AssignedTime = (float)timeStamp;
@@ -111,12 +130,24 @@ public class NoteHighway : MonoBehaviour
     void OnCueHit(Cue cue)
     {
         cue.Hit -= OnCueHit;
-        var efx = Instantiate(hitEffect, noteIndicator.transform.position, Quaternion.identity);
+        if(hitEffect!= null)
+        {
+            var efx = Instantiate(hitEffect, noteIndicator.transform.position, Quaternion.identity);
+        }
         AddScore(cue.baseScore);
     }
-
     void AddScore(float scoreAdd)
     {
         Scored?.Invoke(scoreAdd);
+    }
+    private void OnCueArrived(Cue obj)
+    {
+    }
+    private void OnCuePassed(Cue obj)
+    {
+        if(currentCueIndex < cueList.Count)
+        {
+            currentCueIndex++;
+        }
     }
 }
