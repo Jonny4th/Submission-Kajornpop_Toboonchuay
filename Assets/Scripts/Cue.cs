@@ -7,7 +7,6 @@ public class Cue : MonoBehaviour
     [SerializeField] float baseScore;
     float speed; // <-Highway
     Vector3 indicatorPosition; // <-Highway
-    public float AssignedTime { get; private set; }
     public bool IsWithinHitRegion { get; set; }
 
     #region MonoBehaviours
@@ -19,7 +18,7 @@ public class Cue : MonoBehaviour
         //Get parameters
         var highway = GetComponentInParent<NoteHighway>();
         speed = highway.Speed;
-        indicatorPosition = highway.ActionPosition;
+        indicatorPosition = highway.IndicatorPosition;
 
         //Subscription
         highway.CuePrepared += OnStart;
@@ -31,12 +30,7 @@ public class Cue : MonoBehaviour
     }
     #endregion
 
-    public void AssignTime(float time)
-    {
-        AssignedTime = time;
-    }
-
-    public void SetCueColor(Color cueColor)
+    public void SetColor(Color cueColor)
     {
         GetComponent<SpriteRenderer>().color = cueColor;
     }

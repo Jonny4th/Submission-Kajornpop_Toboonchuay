@@ -12,7 +12,7 @@ public class NoteHighway : MonoBehaviour
     [SerializeField] NoteIndicator noteIndicator;
     [SerializeField] GameObject cueStock;
 
-    public Vector3 ActionPosition
+    public Vector3 IndicatorPosition
     {
         get
         {
@@ -38,7 +38,7 @@ public class NoteHighway : MonoBehaviour
     [Header("Effects")]
     [SerializeField] ParticleSystem hitEffect;
 
-    public List<Cue> cueList = new List<Cue>(); // cue instanciated in each highway.
+    public List<Cue> cueList = new List<Cue>(); // cues instanciated in each highways.
     public List<double> timeStamps = new List<double>(); // note time stamps from midi file.
     int currentCueIndex; // use for action-cue detection.
 
@@ -52,7 +52,7 @@ public class NoteHighway : MonoBehaviour
     {
         // Get parameters
         var highwayManager = GetComponentInParent<NoteHighwayManager>();
-        delay = highwayManager.songDelayInSeconds;
+        delay = highwayManager.songDelay;
         Speed = highwayManager.speed;
         marginOfError = highwayManager.actionMarginOfError;
 
@@ -85,33 +85,34 @@ public class NoteHighway : MonoBehaviour
 
     void Update()
     {
-        KeyPressing();
+        PressingActionKey();
     }
     #endregion
 
-    void KeyPressing()
+    void PressingActionKey()
     {
-        if( Input.GetKeyDown(ActionChar))
+        if(Input.GetKeyDown(ActionChar))
         {
             //Interact with the button UI.
             var ped = new PointerEventData(EventSystem.current);
             ExecuteEvents.Execute(ActionButton.gameObject, ped, ExecuteEvents.pointerEnterHandler);
             ExecuteEvents.Execute(ActionButton.gameObject, ped, ExecuteEvents.submitHandler);
             
-            ActionExecute();
+            ExecutingAction();
         }
     }
 
-    void ActionExecute()
+    void ExecutingAction()
     {
         if (currentCueIndex < cueList.Count)
         {
-            //Get current focused cue.
-            var cue = cueList[currentCueIndex];
             
             //Check if the cue time and the action time is within time window.
-            bool isWithinMargin = Math.Abs(cue.AssignedTime - NoteHighwayManager.GetAudioSourceTime()) < marginOfError;
+            bool isWithinMargin = Math.Abs(timeStamps[currentCueIndex] - NoteHighwayManager.GetAudioSourceTime()) < marginOfError;
             
+            //Get current focused cue.
+            var cue = cueList[currentCueIndex];
+
             //Check if the cue is within reactable range.
             bool isWithinActionRange = cue.IsWithinHitRegion;
 
@@ -145,11 +146,10 @@ public class NoteHighway : MonoBehaviour
         //Create cues with time stamp on, and put into list.
         foreach(double timeStamp in timeStamps)
         {
-            var startPos = (float)(timeStamp + delay ) * Speed * Vector3.up + ActionPosition; 
+            var startPos = (float)(timeStamp + delay ) * Speed * Vector3.up + IndicatorPosition; 
             Cue cue = Instantiate(cuePrefab, startPos, Quaternion.identity, cueStock.transform);
             cueList.Add(cue);
-            cue.SetCueColor(cueColor);
-            cue.AssignTime((float)timeStamp);
+            cue.SetColor(cueColor);
         }
 
         CuePrepared?.Invoke();

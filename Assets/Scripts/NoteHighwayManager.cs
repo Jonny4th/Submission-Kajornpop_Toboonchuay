@@ -24,7 +24,7 @@ public class NoteHighwayManager : MonoBehaviour
     [SerializeField] string fileLocation;
     [SerializeField] AudioSource audioSource;
     [Tooltip("Time in seconds before the song starts.")]
-    public float songDelayInSeconds; // -> Highways
+    public float songDelay; // -> Highways
     Note[] chart;
     public static MidiFile MidiFile { get; private set; }
 
@@ -109,7 +109,7 @@ public class NoteHighwayManager : MonoBehaviour
 
     void StartSong()
     {
-        audioSource.PlayDelayed(songDelayInSeconds);
+        audioSource.PlayDelayed(songDelay);
     }
 
     public static double GetAudioSourceTime()
