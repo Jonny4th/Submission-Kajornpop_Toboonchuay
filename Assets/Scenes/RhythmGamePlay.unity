@@ -496,12 +496,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   actionMarginOfError: 0.10000000149011612
-  score: 0
   scoreDisplay: {fileID: 725937630}
   openingText: {fileID: 28214742}
   fileLocation: Midi/DrumTrack1.mid
   audioSource: {fileID: 230111030}
-  songDelayInSeconds: 2
+  songDelay: 1
 --- !u!82 &230111030
 AudioSource:
   m_ObjectHideFlags: 0
