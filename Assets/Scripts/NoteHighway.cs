@@ -5,6 +5,7 @@ using Melanchall.DryWetMidi.Interaction;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class NoteHighway : MonoBehaviour
 {
@@ -82,17 +83,12 @@ public class NoteHighway : MonoBehaviour
         NoteHighwayManager.DataReady -= SetTimeStamps;
         NoteHighwayManager.Starting -= PrepareCues;
     }
-
-    void Update()
-    {
-        PressingActionKey();
-    }
     #endregion
 
-    void PressingActionKey()
+    public void PressingActionKey(InputAction.CallbackContext context)
     {
-        if(Input.GetKeyDown(ActionChar))
-        {
+        if(context.performed)
+        { 
             //Interact with the button UI.
             var ped = new PointerEventData(EventSystem.current);
             ExecuteEvents.Execute(ActionButton.gameObject, ped, ExecuteEvents.pointerEnterHandler);
@@ -102,7 +98,7 @@ public class NoteHighway : MonoBehaviour
         }
     }
 
-    void ExecutingAction()
+    public void ExecutingAction()
     {
         if (currentCueIndex < cueList.Count)
         {

@@ -405,16 +405,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 180360454}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
+  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MoveAction: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_SubmitAction: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_CancelAction: {fileID: 7727032971491509709, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_LeftClickAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MiddleClickAction: {fileID: -2185481485913320682, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_RightClickAction: {fileID: -4090225696740746782, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 0
+  m_CursorLockBehavior: 0
 --- !u!114 &180360456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -455,6 +465,7 @@ GameObject:
   - component: {fileID: 230111028}
   - component: {fileID: 230111030}
   - component: {fileID: 230111029}
+  - component: {fileID: 230111031}
   m_Layer: 0
   m_Name: NoteHighwayManager
   m_TagString: Untagged
@@ -496,7 +507,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   actionMarginOfError: 0.10000000149011612
-  scoreDisplay: {fileID: 725937630}
   openingText: {fileID: 28214742}
   fileLocation: Midi/DrumTrack1.mid
   audioSource: {fileID: 230111030}
@@ -597,6 +607,30 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &230111031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 230111027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b9e10e92ed60f94986a4436336542be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreDisplay: {fileID: 725937630}
+--- !u!114 &235116522 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+  m_PrefabInstance: {fileID: 284217608}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c60ef4803e01c64d884e4909df9f595, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &284217608
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -614,7 +648,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: ActionChar
-      value: f
+      value: j
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: cueColor.a
@@ -829,6 +863,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &377384838 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+  m_PrefabInstance: {fileID: 651381765}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c60ef4803e01c64d884e4909df9f595, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &524412087 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 817340241893753555, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
@@ -851,7 +896,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: ActionChar
-      value: s
+      value: d
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: cueColor.a
@@ -963,6 +1008,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+--- !u!114 &656935660 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+  m_PrefabInstance: {fileID: 1748109498}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c60ef4803e01c64d884e4909df9f595, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1068,7 +1124,7 @@ GameObject:
   - component: {fileID: 725937629}
   - component: {fileID: 725937630}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1200,6 +1256,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 817340241893753555, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
   m_PrefabInstance: {fileID: 985381717}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &909004852 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+  m_PrefabInstance: {fileID: 985381717}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c60ef4803e01c64d884e4909df9f595, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &945863257 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+  m_PrefabInstance: {fileID: 8705954249299975269}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c60ef4803e01c64d884e4909df9f595, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1300,7 +1378,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: ActionChar
-      value: d
+      value: f
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: cueColor.a
@@ -1412,6 +1490,237 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+--- !u!1 &1207010214
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1207010216}
+  - component: {fileID: 1207010215}
+  m_Layer: 0
+  m_Name: InputManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1207010215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1207010214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: bc8c829d1c530794d82d25841931209e, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 945863257}
+        m_TargetAssemblyTypeName: NoteHighway, Assembly-CSharp
+        m_MethodName: PressingActionKey
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e7208cf8-d0cd-4a2a-88bd-420e303d5acc
+    m_ActionName: Player/HighwayAction1[/Keyboard/s]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 377384838}
+        m_TargetAssemblyTypeName: NoteHighway, Assembly-CSharp
+        m_MethodName: PressingActionKey
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8e71b904-b6fb-4875-bf6b-7ed17c640789
+    m_ActionName: Player/HighwayAction2[/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 909004852}
+        m_TargetAssemblyTypeName: NoteHighway, Assembly-CSharp
+        m_MethodName: PressingActionKey
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3b72dbcb-4b84-4d50-9ac1-52c330c78fa6
+    m_ActionName: Player/HighwayAction3[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 235116522}
+        m_TargetAssemblyTypeName: NoteHighway, Assembly-CSharp
+        m_MethodName: PressingActionKey
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6789fae3-6277-41c0-96e9-ae3ac4663680
+    m_ActionName: Player/HighwayAction4[/Keyboard/j]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 656935660}
+        m_TargetAssemblyTypeName: NoteHighway, Assembly-CSharp
+        m_MethodName: PressingActionKey
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 23703bd0-c94e-4e80-a331-b629d796b40b
+    m_ActionName: Player/HighwayAction5[/Keyboard/k]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1652262293}
+        m_TargetAssemblyTypeName: NoteHighway, Assembly-CSharp
+        m_MethodName: PressingActionKey
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a3194975-5d04-452d-a817-32b052de63e8
+    m_ActionName: Player/HighwayAction6[/Keyboard/l]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f133a4c3-f103-4cc4-b68a-97f852379c97
+    m_ActionName: UI/Navigate[/Shaul Eizikovich vJoy - Virtual Joystick/stick/up,/Shaul
+      Eizikovich vJoy - Virtual Joystick/stick/down,/Shaul Eizikovich vJoy - Virtual
+      Joystick/stick/left,/Shaul Eizikovich vJoy - Virtual Joystick/stick/right,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ceb5681b-1bff-405e-87eb-1141d4d88907
+    m_ActionName: UI/Submit[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 387ae8f2-18a4-41c9-a398-e154dcd3061b
+    m_ActionName: UI/Cancel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fbc76e19-38b7-44b2-8430-4942f294237f
+    m_ActionName: UI/Point[/Mouse/position,/Pen/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 79a01a0e-cb38-4398-b312-015503cd5adc
+    m_ActionName: UI/Click[/Mouse/leftButton,/Pen/tip]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f27e4ed4-9ed8-4f6e-9261-c362179b7be5
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 90f769dc-6b23-42b8-9ec6-fa5011eb5a35
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 03adf105-f384-4210-8a44-dc11895c5316
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1b3bdd39-8866-46e2-a408-a8419a31cab5
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a8ca6fd0-7cb1-4cfc-89c8-ac03adaa0d25
+    m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 230111029}
+        m_TargetAssemblyTypeName: NoteHighwayManager, Assembly-CSharp
+        m_MethodName: RestartingGame
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: aa646f99-e3c3-471e-882c-3ed12240dade
+    m_ActionName: Player/RestartSong[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 230111029}
+        m_TargetAssemblyTypeName: NoteHighwayManager, Assembly-CSharp
+        m_MethodName: QuittingGame
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 4c3c61a4-e2dd-4ea3-a3ad-fc6367a7b2fb
+    m_ActionName: Player/Quit[/Keyboard/escape]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!4 &1207010216
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1207010214}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1235850324
 GameObject:
   m_ObjectHideFlags: 0
@@ -1768,6 +2077,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1652262293 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
+  m_PrefabInstance: {fileID: 1228419121554549830}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c60ef4803e01c64d884e4909df9f595, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1714118945 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 817340241893753555, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
@@ -1795,7 +2115,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: ActionChar
-      value: g
+      value: k
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: cueColor.a
@@ -2175,7 +2495,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: ActionChar
-      value: h
+      value: l
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: cueColor.a
@@ -3316,7 +3636,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: ActionChar
-      value: a
+      value: s
       objectReference: {fileID: 0}
     - target: {fileID: 759919209506448100, guid: 0c03f0f45c7626b4c85e6e427d7c0d65, type: 3}
       propertyPath: cueColor.a

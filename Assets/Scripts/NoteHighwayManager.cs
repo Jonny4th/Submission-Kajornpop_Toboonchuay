@@ -3,6 +3,7 @@ using Melanchall.DryWetMidi.Interaction;
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class NoteHighwayManager : MonoBehaviour
 {
@@ -62,28 +63,24 @@ public class NoteHighwayManager : MonoBehaviour
         if(!IsPlaying)
         {
             openingText.gameObject.SetActive(true);
-            QuittingGame(KeyCode.Escape);
-            RestartingGame(KeyCode.Space);
         }
         
     }
     #endregion
 
-    void QuittingGame(KeyCode trigger)
+    public void QuittingGame(InputAction.CallbackContext context)
     {
-        if(Input.GetKeyDown(trigger))
+        if(context.performed && !IsPlaying)
         {
             //put things to do before quitting game here.
             Application.Quit();
         }
     }
 
-    void RestartingGame(KeyCode trigger)
+    public void RestartingGame(InputAction.CallbackContext context)
     {
-        if(Input.GetKeyDown(trigger))
-        {
+        if(context.performed && !IsPlaying)
             Starting?.Invoke();
-        }
     }
 
     void ReadFromFile()
