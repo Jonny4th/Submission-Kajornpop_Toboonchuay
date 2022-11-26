@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Cue : MonoBehaviour
+public class Cue : MonoBehaviour, IDespawnable
 {
     Rigidbody2D _rigidbody;
 
