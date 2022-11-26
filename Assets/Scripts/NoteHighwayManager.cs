@@ -16,9 +16,7 @@ public class NoteHighwayManager : MonoBehaviour
     public double actionMarginOfError; // -> Highways
 
     [Header("UIs")]
-    [SerializeField] TMP_Text scoreDisplay;
     [SerializeField] TMP_Text openingText;
-    float currentScore;
 
     [Header("MIDI")]
     [SerializeField] string fileLocation;
@@ -45,14 +43,12 @@ public class NoteHighwayManager : MonoBehaviour
         Instance = this;
 
         //Subscription
-        Array.ForEach(GetComponentsInChildren<NoteHighway>(), x => x.Scored += UpdateScore);
         Starting += StartGame;
     }
 
     void OnDisable()
     {
         //Unsubscription
-        Array.ForEach(GetComponentsInChildren<NoteHighway>(), x => x.Scored -= UpdateScore);
         Starting -= StartGame;
     }
 
@@ -103,7 +99,6 @@ public class NoteHighwayManager : MonoBehaviour
     void StartGame()
     {
         openingText.gameObject.SetActive(false);
-        ResetScore();
         StartSong();
     }
 
@@ -115,16 +110,5 @@ public class NoteHighwayManager : MonoBehaviour
     public static double GetAudioSourceTime()
     {
         return (double)Instance.audioSource.timeSamples / Instance.audioSource.clip.frequency;
-    }
-
-    void UpdateScore(float add)
-    {
-        currentScore += add;
-        scoreDisplay.text = currentScore.ToString("0");
-    }
-    void ResetScore()
-    {
-        currentScore = 0;
-        scoreDisplay.text = currentScore.ToString("0");
     }
 }
