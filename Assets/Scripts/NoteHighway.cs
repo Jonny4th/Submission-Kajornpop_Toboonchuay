@@ -87,14 +87,20 @@ public class NoteHighway : MonoBehaviour
 
     public void PressingActionKey(InputAction.CallbackContext context)
     {
+        var ped = new PointerEventData(EventSystem.current);
         if(context.performed)
-        { 
+        {
+            Debug.Log(context);
             //Interact with the button UI.
-            var ped = new PointerEventData(EventSystem.current);
             ExecuteEvents.Execute(ActionButton.gameObject, ped, ExecuteEvents.pointerEnterHandler);
-            ExecuteEvents.Execute(ActionButton.gameObject, ped, ExecuteEvents.submitHandler);
+            ExecuteEvents.Execute(ActionButton.gameObject, ped, ExecuteEvents.pointerDownHandler);
             
             ExecutingAction();
+        }
+        if(context.canceled)
+        {
+            ExecuteEvents.Execute(ActionButton.gameObject, ped, ExecuteEvents.pointerEnterHandler);
+            ExecuteEvents.Execute(ActionButton.gameObject, ped, ExecuteEvents.pointerUpHandler);
         }
     }
 

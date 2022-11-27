@@ -1537,7 +1537,7 @@ MonoBehaviour:
       - m_Target: {fileID: 945863257}
         m_TargetAssemblyTypeName: NoteHighway, Assembly-CSharp
         m_MethodName: PressingActionKey
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1553,7 +1553,7 @@ MonoBehaviour:
       - m_Target: {fileID: 377384838}
         m_TargetAssemblyTypeName: NoteHighway, Assembly-CSharp
         m_MethodName: PressingActionKey
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1569,7 +1569,7 @@ MonoBehaviour:
       - m_Target: {fileID: 909004852}
         m_TargetAssemblyTypeName: NoteHighway, Assembly-CSharp
         m_MethodName: PressingActionKey
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1585,7 +1585,7 @@ MonoBehaviour:
       - m_Target: {fileID: 235116522}
         m_TargetAssemblyTypeName: NoteHighway, Assembly-CSharp
         m_MethodName: PressingActionKey
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1601,7 +1601,7 @@ MonoBehaviour:
       - m_Target: {fileID: 656935660}
         m_TargetAssemblyTypeName: NoteHighway, Assembly-CSharp
         m_MethodName: PressingActionKey
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1617,7 +1617,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1652262293}
         m_TargetAssemblyTypeName: NoteHighway, Assembly-CSharp
         m_MethodName: PressingActionKey
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
