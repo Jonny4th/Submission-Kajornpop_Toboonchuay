@@ -48,6 +48,8 @@ public class NoteHighway : MonoBehaviour
     public event Action<float> Scored; // send score to manager.
     public event Action CuePrepared;
 
+    float time;
+
     #region Monobehaviours
     private void Awake()
     {
@@ -87,15 +89,15 @@ public class NoteHighway : MonoBehaviour
 
     public void PressingActionKey(InputAction.CallbackContext context)
     {
+        time = Time.time;
         var ped = new PointerEventData(EventSystem.current);
         if(context.performed)
         {
-            Debug.Log(context);
+            ExecutingAction();
             //Interact with the button UI.
             ExecuteEvents.Execute(ActionButton.gameObject, ped, ExecuteEvents.pointerEnterHandler);
             ExecuteEvents.Execute(ActionButton.gameObject, ped, ExecuteEvents.pointerDownHandler);
             
-            ExecutingAction();
         }
         if(context.canceled)
         {
@@ -113,13 +115,14 @@ public class NoteHighway : MonoBehaviour
             bool isWithinMargin = Math.Abs(timeStamps[currentCueIndex] - NoteHighwayManager.GetAudioSourceTime()) < marginOfError;
             
             //Get current focused cue.
-            var cue = cueList[currentCueIndex];
+            Cue cue = cueList[currentCueIndex];
 
             //Check if the cue is within reactable range.
             bool isWithinActionRange = cue.IsWithinHitRegion;
 
             if (isWithinActionRange && isWithinMargin)
             {
+                Debug.Log(ActionChar + ", " + (Time.time - time));
                 cue.OnHit();
                 OnCueHit(cue);
             }
@@ -148,8 +151,8 @@ public class NoteHighway : MonoBehaviour
         //Create cues with time stamp on, and put into list.
         foreach(double timeStamp in timeStamps)
         {
-            var startPos = (float)(timeStamp + delay ) * Speed * Vector3.up + IndicatorPosition; 
-            Cue cue = Instantiate(cuePrefab, startPos, Quaternion.identity, cueStock.transform);
+            var startPos = (float)(timeStamp + delay ) * Speed * transform.up + IndicatorPosition; 
+            Cue cue = Instantiate(cuePrefab, startPos, transform.rotation, cueStock.transform);
             cueList.Add(cue);
             cue.SetColor(cueColor);
         }

@@ -5,8 +5,8 @@ public class Cue : MonoBehaviour, IDespawnable
     Rigidbody2D _rigidbody;
 
     [SerializeField] float baseScore;
-    float speed; // <-Highway
-    Vector3 indicatorPosition; // <-Highway
+    [SerializeField] float speed; // <-Highway
+    [SerializeField] Vector3 indicatorPosition; // <-Highway
     public bool IsWithinHitRegion { get; set; }
 
     #region MonoBehaviours
@@ -26,7 +26,7 @@ public class Cue : MonoBehaviour, IDespawnable
     void OnDisable()
     {
         //Unsubscription
-        GetComponentInParent<NoteHighway>().CuePrepared-= OnStart;
+        GetComponentInParent<NoteHighway>().CuePrepared -= OnStart;
     }
     #endregion
 
@@ -39,7 +39,7 @@ public class Cue : MonoBehaviour, IDespawnable
     {
         if(_rigidbody != null)
         {
-            _rigidbody.velocity = Vector3.down * speed;
+            _rigidbody.velocity = - speed * transform.up ;
         }
     }
     public void OnHit()

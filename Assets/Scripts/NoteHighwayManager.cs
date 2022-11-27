@@ -87,6 +87,7 @@ public class NoteHighwayManager : MonoBehaviour
     {
         string path = Application.streamingAssetsPath + "/" + fileLocation;
         MidiFile = MidiFile.Read(path);
+        
         var notes = MidiFile.GetNotes();
         chart = new Note[notes.Count]; // allocate array for note data.
         notes.CopyTo(chart, 0);
